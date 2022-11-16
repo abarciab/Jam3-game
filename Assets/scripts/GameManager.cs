@@ -6,6 +6,7 @@ using TMPro;
 using System;
 using UnityEngine.SceneManagement;
 
+//this class is a flexible way to create diffent kinds of abilities in the game.
 [System.Serializable]
 public class Ability
 {
@@ -25,6 +26,7 @@ public class Ability
     public int soundID;
 }
 
+//hasn't been implemented yet, but I was thinking that this class can help enemy.cs and character.cs track status effects from abilities, positive or negative
 [System.Serializable]
 public class StatusEffect
 {
@@ -32,10 +34,12 @@ public class StatusEffect
     public float damagePerTurn;
 }
 
+//this GameManager script is pretty broad, and you might want to split it up into a couple differnt managers if it gets too messy, but it works for now. it's also the only singleton in the project, which is kinda nice
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    //these are System.Actions, and they're one of the ways unity can do events + listeners. other scripts can subscribe to them, then they can be called with action.invoke()
     public static Action onUpdateInput;
     public static Action onEnemyTurnStart;
     public static Action onPlayerTurnStart;
@@ -49,7 +53,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI turnLabel;
     public TextMeshProUGUI LogText;
     [HideInInspector]
-    public ComboGagueCoordinator comboScript;
+    public ComboGagueCoordinator comboScript;   //this script assigns itself, so I hid it in the inspector
     public GameObject targetIcon;
     public GameObject winScreen;
     public GameObject loseScreen;
@@ -57,25 +61,26 @@ public class GameManager : MonoBehaviour
     [Header("misc")]
     public int turnsPassed;
     public int targetEnemy;
-    public Color normalPatternColor;
-    public Color typedPatternColor;
+    public Color normalPatternColor;        //not currently implemented
+    public Color typedPatternColor;         //not currently implemented
     public int successSoundID;
     public int failureSoundID;
-    bool playSuccessSound;
-    bool playSound;
-
     public string currentPattern;
     public bool playerTurn;
 
-    //public float testEnemyTime = 1;
-    //private float testEnemyCounter;
+    //see InputReactSound for more details about these two
+    bool playSuccessSound;
+    bool playSound;
 
+    //setup singleton
     private void Awake() {
         instance = this;
     }
 
+
     void Update()
     {
+        //first, check win/loss. this would be better to check only when a player or enemy dies
         if (charactersInFight.Count == 0 && turnsPassed > 0) {
             if (!loseScreen.activeInHierarchy)
                 loseScreen.SetActive(true);
@@ -87,6 +92,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        //the player can use the number keys to select an enemy to target (only relevant for abilities that have 'randomTarget' set to false. also the targetIcon doesn't reset when an enemy dies, so it needs to be updated
         if (enemiesInFight.Count > 0) {
             int number;
             if (int.TryParse(Input.inputString, out number)) {
@@ -97,6 +103,8 @@ public class GameManager : MonoBehaviour
                 return;
             }
         }
+
+        //check if a key was pressed and broadcast which it was
         if (playerTurn) {
             if (!string.IsNullOrEmpty(Input.inputString)) {
                 currentPattern += Input.inputString;
@@ -109,6 +117,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //there's probably a better way todo this, but this script ensures that enemies are sorted by xPosition in the list, so that selecting them makes more sense visually (i.e. pressing '1' selects the leftmost one, then '2' selects the enemy to the right)
     public void AddEnemyToFight(Enemy enemy) {
         int correctPosition = 0;
         for (int i = 0; i < enemiesInFight.Count; i++) {
@@ -130,6 +139,7 @@ public class GameManager : MonoBehaviour
         enemiesInFight.Add(displacedEnemy);
     }
 
+    //called from enemy.cs. this goes through all enemies sequentially and calls 'startAttack' on them
     public void CompleteAttack(Enemy _enemy) {
         enemyActionQueue.Remove(_enemy);
         
@@ -141,6 +151,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //resets the current pattern, increments turn counter, and makes the first enemy attack. 
     public void EndPlayerTurn() {
         turnsPassed += 1;
         currentPattern = "";
@@ -154,6 +165,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //this function makes sure that the right sound is played when a key is pressed. it should play a good sound when the right key is pressed, and only play a bad sound if there are no patterns that the key matches
     public void InputReactSound(bool sucsess, bool started) {
         if (sucsess) {
             playSound = true;
@@ -165,6 +177,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //...starts the player turn...
     public void StartPlayerTurn() {
         currentPattern = "";
         playerTurn = true;
@@ -173,10 +186,12 @@ public class GameManager : MonoBehaviour
         onPlayerTurnStart?.Invoke();
     }
 
+    //mostly here for testing, this function logs strings to the in-game display
     public void Log(string newLine) {
         LogText.text += "\n" + newLine;
     }
 
+    //called from the win and lose screens, this function is required to null out the events. otherwise, they would try to call functions attached to destroyed gameObjects.
     public void ResetScene() {
         onUpdateInput = null;
         onEnemyTurnStart = null;

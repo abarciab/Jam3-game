@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//this is an audiomanage I've used for a few projects now, and it's pretty straightforward. add clips to this script in the inspector (don't forget to set their ID), then call audioManager.instance.PlayGlobal(), .PlayHere(), or .PlayMusic()
+//it's not the most elegant thing ever, but it should work just fine
 public class AudioManager : MonoBehaviour
 {
     [System.Serializable]
@@ -13,7 +15,7 @@ public class AudioManager : MonoBehaviour
         [Range(0, 1)]
         public float volume = 1;
         [Range(-3, 3)]
-        public float pitch = 1;
+        public float pitch = 1;     //if your sound isn't playing, make sure to check that the pitch isn't 0. if it is, it'll be muted
         public bool looping;
     }
     public List<Sound> sounds = new List<Sound>();
@@ -55,7 +57,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayGlobal(int soundID, float volume = -1, bool restart = false, int _priority = -1)      //play given sound from global audiosource
+    public void PlayGlobal(int soundID, float volume = -1, bool restart = false, int _priority = -1)      //play given sound from global audiosource. priority is optional, but if you want to make sure one sound plays in its entirety, pass a priority value. see an example in enemy.cs
     {
 
         PlayHere(soundID, global, volume, restart, priority: _priority);
