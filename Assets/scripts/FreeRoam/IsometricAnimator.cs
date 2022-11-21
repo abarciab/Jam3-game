@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IsometricAnimtor : MonoBehaviour
+public class IsometricAnimator : MonoBehaviour
 {
     private string[] stillAnims = {"Still_N", "Still_NW", "Still_W", "Still_SW", 
                                    "Still_S", "Still_SE", "Still_E", "Still_NE"};

@@ -6,11 +6,11 @@ public class IsometricPlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
     private Rigidbody2D body;
-    private IsometricAnimtor animator;
+    private IsometricAnimator animator;
 
     private void Awake() {
         body = GetComponent<Rigidbody2D>();
-        animator = GetComponent<IsometricAnimtor>();
+        animator = GetComponent<IsometricAnimator>();
     }
 
     private void FixedUpdate() {
