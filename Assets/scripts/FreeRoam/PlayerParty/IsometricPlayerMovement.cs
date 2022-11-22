@@ -5,12 +5,17 @@ using UnityEngine;
 public class IsometricPlayerMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private int collisionLayerNumber;
     private Rigidbody2D body;
     private IsometricAnimator animator;
 
     private void Awake() {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<IsometricAnimator>();
+
+        // ignore collisions for EnemyDetector
+        Physics2D.IgnoreLayerCollision(transform.GetChild(0).gameObject.layer, collisionLayerNumber);
+        Physics2D.IgnoreLayerCollision(transform.GetChild(0).gameObject.layer, gameObject.layer);
     }
 
     private void FixedUpdate() {

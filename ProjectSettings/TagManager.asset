@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Party
-  - 
+  - EnemyDetector
   - 
   - 
   - 
@@ -46,4 +46,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3653495463
+    locked: 0
+  - name: Enemy
+    uniqueID: 2789390205
     locked: 0
