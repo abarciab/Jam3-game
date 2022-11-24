@@ -1979,7 +1979,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639098558}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: -6.99, y: 6.27, z: -0.075978704}
+  m_LocalPosition: {x: -6.99, y: 6.27, z: -1}
   m_LocalScale: {x: 0.46967, y: 0.46967, z: 0.46967}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3058,8 +3058,53 @@ MonoBehaviour:
   enemyName: Bad dude
   maxHealth: 35
   health: 20
-  testDamage: 8
+  testDamage: 6
   attackTime: 0.5
+  abilityNames: []
+  AoEAbility:
+    numTargets: 3
+    targetAllies: 0
+    turnDuration: 1
+    damagePerTurn: 0
+    randomTarget: 0
+    damage: 3
+    comboValue: 0.15
+    castTime: 0.1
+    description: 
+    soundID: 1
+  HealAbility:
+    numTargets: 1
+    targetAllies: 0
+    turnDuration: 1
+    damagePerTurn: 1
+    randomTarget: 0
+    damage: -6
+    comboValue: 0.15
+    castTime: 0.1
+    description: 
+    soundID: 7
+  DoTAbility:
+    numTargets: 2
+    targetAllies: 0
+    turnDuration: 1
+    damagePerTurn: 1
+    randomTarget: 0
+    damage: 2
+    comboValue: 0.15
+    castTime: 0.1
+    description: 
+    soundID: 0
+  OtherAbility:
+    numTargets: 1
+    targetAllies: 0
+    turnDuration: 1
+    damagePerTurn: 1
+    randomTarget: 0
+    damage: 1
+    comboValue: 0.15
+    castTime: 0.1
+    description: 
+    soundID: 0
   nameLabel: {fileID: 430997672}
   healthLabel: {fileID: 74768083}
   damageIndicator: {fileID: 1092165676}
@@ -4091,6 +4136,51 @@ MonoBehaviour:
   health: 20
   testDamage: 4
   attackTime: 0.5
+  abilityNames: []
+  AoEAbility:
+    numTargets: 2
+    targetAllies: 0
+    turnDuration: 0
+    damagePerTurn: 0
+    randomTarget: 0
+    damage: 2
+    comboValue: 0.15
+    castTime: 0.1
+    description: 
+    soundID: 1
+  HealAbility:
+    numTargets: 2
+    targetAllies: 0
+    turnDuration: 1
+    damagePerTurn: 1
+    randomTarget: 0
+    damage: -3
+    comboValue: 0.15
+    castTime: 0.1
+    description: 
+    soundID: 7
+  DoTAbility:
+    numTargets: 1
+    targetAllies: 0
+    turnDuration: 1
+    damagePerTurn: 1
+    randomTarget: 0
+    damage: 1
+    comboValue: 0.15
+    castTime: 0.1
+    description: 
+    soundID: 0
+  OtherAbility:
+    numTargets: 1
+    targetAllies: 0
+    turnDuration: 1
+    damagePerTurn: 1
+    randomTarget: 0
+    damage: 1
+    comboValue: 0.15
+    castTime: 0.1
+    description: 
+    soundID: 0
   nameLabel: {fileID: 1883895498}
   healthLabel: {fileID: 530038430}
   damageIndicator: {fileID: 734253591}
@@ -4514,7 +4604,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8117070087247586554, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: ability.damage
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8117070087247586554, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: testComboBonus
