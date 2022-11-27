@@ -13,6 +13,7 @@ public class EnemyStats {
 
 public class FreeRoamEnemy : MonoBehaviour
 {
+    [SerializeField] private Transform fade;
     private Collider2D enemyTrigger;
 
     public List<EnemyStats> enemiesInEncounter;
@@ -24,7 +25,16 @@ public class FreeRoamEnemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         // load stats into battle manager
         if(other.tag == "Player")
-            BattleManager.instance.startBattleScene(this);
+            //BattleManager.instance.startBattleScene(this);
+            StartCoroutine("startTransition");
+    }
+
+    private IEnumerator startTransition() {
+        fade.gameObject.SetActive(true);
+        fade.GetComponent<Animator>().Play("FadeOut");
+        yield return new WaitUntil(() => fade.GetComponent<FadeTransition>().transitionOver());
+        fade.gameObject.SetActive(false);
+        BattleManager.instance.startBattleScene(this);
     }
 
     public EnemyStats findEnemyByName(string name) {
