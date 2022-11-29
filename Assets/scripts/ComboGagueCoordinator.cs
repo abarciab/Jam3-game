@@ -7,17 +7,22 @@ using TMPro;
 //this script handles the combo meter 
 public class ComboGagueCoordinator : MonoBehaviour
 {
+    public bool verticalBar = true;
     public TextMeshProUGUI multiplierDisplay;
     public RectTransform meterTransform;
     public float timeMod;
     public float comboExponent;
     float originalHeight;
+    float originalWidth;
     float width;
+    float height;
     [SerializeField] float comboPercent;
 
     private void Start() {
         width = meterTransform.rect.width;
+        width = meterTransform.rect.height;
         originalHeight = meterTransform.rect.height;
+        originalHeight = meterTransform.rect.width;
         GameManager.instance.comboScript = this;
     }
 
