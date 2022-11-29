@@ -9,6 +9,9 @@ public class EnemyStats {
     public int maxHealth;
     public float attackTime;
     public List<string> abilityNames;
+    public bool isSpeaker = false;
+    [Tooltip("NOTE: First line is intro line said at beginning of battle")]
+    public List<string> dialogueLines;
 }
 
 public class FreeRoamEnemy : MonoBehaviour
@@ -25,11 +28,11 @@ public class FreeRoamEnemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         // load stats into battle manager
         if(other.tag == "Player")
-            //BattleManager.instance.startBattleScene(this);
             StartCoroutine("startTransition");
     }
 
     private IEnumerator startTransition() {
+        // play fade and start battle scene after fade
         fade.gameObject.SetActive(true);
         fade.GetComponent<Animator>().Play("FadeOut");
         yield return new WaitUntil(() => fade.GetComponent<FadeTransition>().transitionOver());
