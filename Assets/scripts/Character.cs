@@ -152,8 +152,7 @@ public class Character : MonoBehaviour
     public void Damage(float damageAmount, int duration = 1, float damagePerTurn = 1)
     {
         damageIndicator.gameObject.SetActive(false);
-        health = Mathf.Max(0, health - damageAmount);
-        health = Mathf.Min(health, maxHealth);
+        health = health - damageAmount;
         healthLabel.text = (Mathf.Round(health * 10) / 10) + "/" + maxHealth;
         damageIndicator.text = Mathf.Abs(Mathf.Round(damageAmount * 10) / 10).ToString();
         damageIndicator.color = damageAmount < 0 ? Color.green : Color.red;

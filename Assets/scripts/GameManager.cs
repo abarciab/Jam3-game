@@ -10,10 +10,12 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class Ability
 {
+    public string abilityName = "";
     public int numTargets = 1;
     public bool targetAllies;
     public int turnDuration = 1;
     public float damagePerTurn = 1;
+    public float abilityChance = 1;
     public bool randomTarget;       //if randomTarget is false, but numtargets is >1, any additional targets are selected randomly
     [Tooltip("negative damage values heal targets")]
     public float damage = 1;        

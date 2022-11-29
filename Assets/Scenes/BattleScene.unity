@@ -3060,12 +3060,26 @@ MonoBehaviour:
   health: 20
   testDamage: 6
   attackTime: 0.5
-  abilityNames: []
-  AoEAbility:
+  usableAbilities:
+  - abilityName: Fire Blast
     numTargets: 3
     targetAllies: 0
     turnDuration: 1
     damagePerTurn: 0
+    abilityChance: 90
+    randomTarget: 0
+    damage: 2
+    comboValue: 0
+    castTime: 0.1
+    description: AOE Attack
+    soundID: 1
+  AoEAbility:
+    abilityName: 
+    numTargets: 3
+    targetAllies: 0
+    turnDuration: 1
+    damagePerTurn: 0
+    abilityChance: 1
     randomTarget: 0
     damage: 3
     comboValue: 0.15
@@ -3073,10 +3087,12 @@ MonoBehaviour:
     description: 
     soundID: 1
   HealAbility:
+    abilityName: 
     numTargets: 1
     targetAllies: 0
     turnDuration: 1
     damagePerTurn: 1
+    abilityChance: 1
     randomTarget: 0
     damage: -6
     comboValue: 0.15
@@ -3084,10 +3100,12 @@ MonoBehaviour:
     description: 
     soundID: 7
   DoTAbility:
+    abilityName: 
     numTargets: 2
     targetAllies: 0
     turnDuration: 1
     damagePerTurn: 1
+    abilityChance: 1
     randomTarget: 0
     damage: 2
     comboValue: 0.15
@@ -3095,10 +3113,12 @@ MonoBehaviour:
     description: 
     soundID: 0
   OtherAbility:
+    abilityName: 
     numTargets: 1
     targetAllies: 0
     turnDuration: 1
     damagePerTurn: 1
+    abilityChance: 1
     randomTarget: 0
     damage: 1
     comboValue: 0.15
@@ -4136,12 +4156,14 @@ MonoBehaviour:
   health: 20
   testDamage: 4
   attackTime: 0.5
-  abilityNames: []
+  usableAbilities: []
   AoEAbility:
+    abilityName: 
     numTargets: 2
     targetAllies: 0
     turnDuration: 0
     damagePerTurn: 0
+    abilityChance: 1
     randomTarget: 0
     damage: 2
     comboValue: 0.15
@@ -4149,10 +4171,12 @@ MonoBehaviour:
     description: 
     soundID: 1
   HealAbility:
+    abilityName: 
     numTargets: 2
     targetAllies: 0
     turnDuration: 1
     damagePerTurn: 1
+    abilityChance: 1
     randomTarget: 0
     damage: -3
     comboValue: 0.15
@@ -4160,10 +4184,12 @@ MonoBehaviour:
     description: 
     soundID: 7
   DoTAbility:
+    abilityName: 
     numTargets: 1
     targetAllies: 0
     turnDuration: 1
     damagePerTurn: 1
+    abilityChance: 1
     randomTarget: 0
     damage: 1
     comboValue: 0.15
@@ -4171,10 +4197,12 @@ MonoBehaviour:
     description: 
     soundID: 0
   OtherAbility:
+    abilityName: 
     numTargets: 1
     targetAllies: 0
     turnDuration: 1
     damagePerTurn: 1
+    abilityChance: 1
     randomTarget: 0
     damage: 1
     comboValue: 0.15
