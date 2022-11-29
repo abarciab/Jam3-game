@@ -50,3 +50,6 @@ TagManager:
   - name: Enemy
     uniqueID: 2789390205
     locked: 0
+  - name: Interactables
+    uniqueID: 1429296601
+    locked: 0

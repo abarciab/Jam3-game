@@ -8,7 +8,7 @@ public class EnemyStats {
     public Sprite portrait;
     public int maxHealth;
     public float attackTime;
-    public List<string> abilityNames;
+    public List<Ability> abilities;
     public bool isSpeaker = false;
     [Tooltip("NOTE: First line is intro line said at beginning of battle")]
     public List<string> dialogueLines;
