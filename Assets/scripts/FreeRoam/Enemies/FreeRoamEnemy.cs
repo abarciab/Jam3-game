@@ -7,19 +7,20 @@ public class EnemyStats {
     public string enemyName;
     public Sprite portrait;
     public int maxHealth;
+    public float attackDamage;
     public float attackTime;
-    public List<Ability> abilities;
+    public List<Ability> usableAbilities;
     public bool isSpeaker = false;
     [Tooltip("NOTE: First line is intro line said at beginning of battle")]
     public List<string> dialogueLines;
 }
-
 public class FreeRoamEnemy : MonoBehaviour
 {
     [SerializeField] private Transform fade;
     private Collider2D enemyTrigger;
 
     public List<EnemyStats> enemiesInEncounter;
+    public List<Enemy> enemyList = new List<Enemy>();
 
     private void Awake() {
         enemyTrigger = GetComponent<Collider2D>();

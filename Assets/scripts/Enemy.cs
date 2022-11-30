@@ -7,18 +7,15 @@ public class Enemy : MonoBehaviour
 {
     [Header("stats")]
     public string enemyName;
+    public Sprite portrait;
     public int maxHealth;
     public float health;
-    public float testDamage;        //it's not setup, but it would probably be best if enemy attacks worked the same way as character attacks, making use of the 'Ability' class to allow for much more flexibility. check out character.cs to see more
-    [Tooltip("the time, in seconds, it takes for this enemy to complete their attack")]     //enemy attacks are performed sequentially
+    public float attackDamage; 
     public float attackTime = 0.5f;
     public List<Ability> usableAbilities;
-
-    [Header("Abilities")]
-    public Ability AoEAbility;
-    public Ability HealAbility;
-    public Ability DoTAbility;
-    public Ability OtherAbility;
+    public bool isSpeaker = false;
+    [Tooltip("NOTE: First line is intro line said at beginning of battle")]
+    public List<string> dialogueLines;
 
     [Header("references")]
     public TextMeshProUGUI nameLabel;
@@ -32,6 +29,7 @@ public class Enemy : MonoBehaviour
     //basic setup for some UI labels and adding listeners to events
     private void Start() {
         nameLabel.text = enemyName;
+        
         GameManager.instance.AddEnemyToFight(this);
         health = maxHealth;
         healthLabel.text = health + "/" + maxHealth;
@@ -78,8 +76,8 @@ public class Enemy : MonoBehaviour
     //simple attack, where a random character is picked and damage is dealt.
     void Attack() {
         Character target = GameManager.instance.charactersInFight[Random.Range(0, GameManager.instance.charactersInFight.Count)];
-        GameManager.instance.Log(enemyName + " attacks " + target.characterName + " for " + testDamage + " dmg");
-        target.Damage(testDamage);
+        GameManager.instance.Log(enemyName + " attacks " + target.characterName + " for " + attackDamage + " dmg");
+        target.Damage(attackDamage);
         AudioManager.instance.PlayGlobal(6, _priority: 1, restart: true);   //the restart:true ensures that, if multiple enemies attack quickly, you hear part of each attack, even if it's inturrupeted. it'll be better to have an audiosource on each enemy, then there's no overlap
         GameManager.instance.CompleteAttack(this);      //this function is called to let the gameManager know that it's time for the next enemy to attack
     }

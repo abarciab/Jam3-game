@@ -2507,7 +2507,7 @@ Tilemap:
       - {fileID: 1763668945, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: 137758464, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: 1029267088, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
-      m_AnimationSpeed: 2.5004334
+      m_AnimationSpeed: 2.2231746
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -2, y: -1, z: -1}
@@ -2517,7 +2517,7 @@ Tilemap:
       - {fileID: 1763668945, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: 137758464, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: 1029267088, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
-      m_AnimationSpeed: 2.7613573
+      m_AnimationSpeed: 2.7661703
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -7798,7 +7798,7 @@ Tilemap:
       - {fileID: 882995319, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: -711148318, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: 1478050936, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
-      m_AnimationSpeed: 1.4127262
+      m_AnimationSpeed: 1.5188544
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -1, y: 3, z: 0}
@@ -7807,7 +7807,7 @@ Tilemap:
       - {fileID: 882995319, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: -711148318, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: 1478050936, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
-      m_AnimationSpeed: 1.3473747
+      m_AnimationSpeed: 1.0362803
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 4, y: 6, z: 6}
@@ -7816,7 +7816,7 @@ Tilemap:
       - {fileID: 882995319, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: -711148318, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: 1478050936, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
-      m_AnimationSpeed: 1.3889468
+      m_AnimationSpeed: 1.9597578
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -13108,6 +13108,102 @@ PrefabInstance:
       propertyPath: fade
       value: 
       objectReference: {fileID: 1471386798}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[0].portrait
+      value: 
+      objectReference: {fileID: 21300000, guid: a8fa5efcf3406454488935318f9a8c23, type: 3}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].portrait
+      value: 
+      objectReference: {fileID: 21300000, guid: a8fa5efcf3406454488935318f9a8c23, type: 3}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].enemyName
+      value: Test Enemy2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].isSpeaker
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].maxHealth
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].attackTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].abilities.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].dialogueLines.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].dialogueLines.Array.data[0]
+      value: This is a test intro line
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].dialogueLines.Array.data[1]
+      value: First dialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].dialogueLines.Array.data[2]
+      value: Second dialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].dialogueLines.Array.data[3]
+      value: Third dialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].dialogueLines.Array.data[4]
+      value: This is a generic line
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].abilities.Array.data[0].damage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].abilities.Array.data[0].castTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].abilities.Array.data[0].comboValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].abilities.Array.data[0].numTargets
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].abilities.Array.data[0].abilityName
+      value: Test Ability
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].abilities.Array.data[0].description
+      value: Test
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].abilities.Array.data[0].turnDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].abilities.Array.data[0].abilityChance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].abilities.Array.data[0].damagePerTurn
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6193638170569933339, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
       propertyPath: m_RootOrder
       value: 0
