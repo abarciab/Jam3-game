@@ -20,9 +20,9 @@ public class ComboGagueCoordinator : MonoBehaviour
 
     private void Start() {
         width = meterTransform.rect.width;
-        width = meterTransform.rect.height;
+        height = meterTransform.rect.height;
         originalHeight = meterTransform.rect.height;
-        originalHeight = meterTransform.rect.width;
+        originalWidth = meterTransform.rect.width;
         GameManager.instance.comboScript = this;
     }
 
