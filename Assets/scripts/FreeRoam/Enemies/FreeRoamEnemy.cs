@@ -41,9 +41,11 @@ public class FreeRoamEnemy : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        // load stats into battle manager
-        if(other.collider.tag == "Player")
+        // disable player movement and load stats into battle manager
+        if(other.collider.tag == "Player") {
+            other.transform.GetComponent<IsometricPlayerMovement>().toggleMovement(false);
             StartCoroutine("startTransition");
+        }
     }
     
 

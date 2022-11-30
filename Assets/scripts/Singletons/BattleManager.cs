@@ -20,36 +20,23 @@ public class BattleManager : MonoBehaviour
 
     private void toggleScene(string sceneName, bool active) {
         foreach(GameObject gmobj in SceneManager.GetSceneByName(sceneName).GetRootGameObjects())
-            if(gmobj.tag != "GameController")
+            if(gmobj.tag != "GameController") {
                 gmobj.SetActive(active);
+                
+                if(gmobj.tag == "PlayerParty")
+                    gmobj.GetComponentInChildren<IsometricPlayerMovement>().toggleMovement(active);
+            }
     }
 
     public void startBattleScene(FreeRoamEnemy enemy) {
         // load enemies
         currentFreeRoamEnemy = enemy;
         currentEnemies = enemy.enemiesInEncounter;
-        /*Enemy newEnemy = new Enemy();
-        for(int i = 0; i < currentEnemies.Count; i++){
-            newEnemy.enemyName = currentEnemies[i].enemyName;
-            newEnemy.portrait = currentEnemies[i].portrait;
-            newEnemy.maxHealth = currentEnemies[i].maxHealth;
-            newEnemy.attackDamage = currentEnemies[i].attackDamage;
-            newEnemy.attackTime = currentEnemies[i].attackTime;
-            newEnemy.usableAbilities = currentEnemies[i].usableAbilities;
-            newEnemy.isSpeaker = currentEnemies[i].isSpeaker;
-            newEnemy.dialogueLines = currentEnemies[i].dialogueLines;
-            enemyChoice.Add(newEnemy);
-            GameManager.instance.AddEnemyToFight(newEnemy);
-        }*/
         
-
         // pause free roam scene and start battle scene
         toggleScene(freeRoamSceneName, false);
-        if(!SceneManager.GetSceneByName(battleSceneName).isLoaded){
+        if(!SceneManager.GetSceneByName(battleSceneName).isLoaded)
             SceneManager.LoadScene(battleSceneName, LoadSceneMode.Additive); 
-            //GameManager.instance.Test();
-
-        }
     }
 
     public void endBattleWin() {

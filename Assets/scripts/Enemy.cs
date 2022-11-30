@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
     //basic setup for some UI labels and adding listeners to events
     private void Start() {
         nameLabel.text = enemyName;
+        GetComponent<SpriteRenderer>().sprite = portrait;
 
         GameManager.instance.AddEnemyToFight(this);
         health = maxHealth;
@@ -42,6 +43,17 @@ public class Enemy : MonoBehaviour
         if (!GameManager.instance.enemyActionQueue.Contains(this)) {
             GameManager.instance.enemyActionQueue.Add(this);
         }
+    }
+
+    public void setStats(EnemyStats stats) {
+        enemyName = stats.enemyName;
+        portrait = stats.portrait;
+        maxHealth = stats.maxHealth;
+        attackDamage = stats.attackDamage;
+        attackTime = stats.attackTime;
+        usableAbilities = stats.usableAbilities;
+        isSpeaker = stats.isSpeaker;
+        dialogueLines = stats.dialogueLines;
     }
 
     //simple handler for the coroutine so that other scripts can call this instead of 'startCoroutine("ReadyAttack")'

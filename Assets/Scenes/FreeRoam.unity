@@ -2394,7 +2394,7 @@ Tilemap:
       - {fileID: 1763668945, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: 137758464, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: 1029267088, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
-      m_AnimationSpeed: 2.278931
+      m_AnimationSpeed: 2.9882991
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -2, y: -1, z: -1}
@@ -2404,7 +2404,7 @@ Tilemap:
       - {fileID: 1763668945, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: 137758464, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: 1029267088, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
-      m_AnimationSpeed: 2.7796237
+      m_AnimationSpeed: 2.2200785
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -7679,7 +7679,7 @@ Tilemap:
       - {fileID: 882995319, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: -711148318, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: 1478050936, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
-      m_AnimationSpeed: 1.0621557
+      m_AnimationSpeed: 1.2116653
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -1, y: 3, z: 0}
@@ -7688,7 +7688,7 @@ Tilemap:
       - {fileID: 882995319, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: -711148318, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: 1478050936, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
-      m_AnimationSpeed: 1.0890787
+      m_AnimationSpeed: 1.6058447
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 4, y: 6, z: 6}
@@ -7697,7 +7697,7 @@ Tilemap:
       - {fileID: 882995319, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: -711148318, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
       - {fileID: 1478050936, guid: 50e3a80f0c0cae342a9b0ecfd8270875, type: 3}
-      m_AnimationSpeed: 1.4868104
+      m_AnimationSpeed: 1.2096616
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   m_TileAssetArray:
@@ -11977,34 +11977,6 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8698502856930113065, guid: 960bae2bcb746374492c18140c5981e9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8698502856930113065, guid: 960bae2bcb746374492c18140c5981e9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8698502856930113065, guid: 960bae2bcb746374492c18140c5981e9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8698502856930113065, guid: 960bae2bcb746374492c18140c5981e9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8698502856930113065, guid: 960bae2bcb746374492c18140c5981e9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8698502856930113065, guid: 960bae2bcb746374492c18140c5981e9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8698502856930113065, guid: 960bae2bcb746374492c18140c5981e9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8698502856930113065, guid: 960bae2bcb746374492c18140c5981e9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -13073,6 +13045,94 @@ PrefabInstance:
       propertyPath: dropSprite
       value: 
       objectReference: {fileID: 21300000, guid: daf2ab606d4db0d4f9ecf4c02137d2a8, type: 3}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].portrait
+      value: 
+      objectReference: {fileID: 21300000, guid: a8fa5efcf3406454488935318f9a8c23, type: 3}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[2].portrait
+      value: 
+      objectReference: {fileID: 21300000, guid: 9ee1eb40263104f4bb18c096e9d8ebf5, type: 3}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].enemyName
+      value: test enemy 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].isSpeaker
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].maxHealth
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[2].enemyName
+      value: test enemy 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[2].maxHealth
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].attackTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[2].attackTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].dialogueLines.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[2].dialogueLines.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].dialogueLines.Array.data[0]
+      value: This is a test intro line
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].dialogueLines.Array.data[1]
+      value: First dialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].dialogueLines.Array.data[2]
+      value: Second dialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].dialogueLines.Array.data[3]
+      value: Third dialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[1].dialogueLines.Array.data[4]
+      value: This is a generic line
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[2].dialogueLines.Array.data[0]
+      value: This is a test intro line
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[2].dialogueLines.Array.data[1]
+      value: First dialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[2].dialogueLines.Array.data[2]
+      value: Second dialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[2].dialogueLines.Array.data[3]
+      value: Third dialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6193638170569933337, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
+      propertyPath: enemiesInEncounter.Array.data[2].dialogueLines.Array.data[4]
+      value: This is a generic line
+      objectReference: {fileID: 0}
     - target: {fileID: 6193638170569933339, guid: cc1bc8130a03fea43bed752d901ac4a1, type: 3}
       propertyPath: m_RootOrder
       value: 0

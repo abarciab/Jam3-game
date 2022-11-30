@@ -46,6 +46,12 @@ public class GameManager : MonoBehaviour
     public static Action onEnemyTurnStart;
     public static Action onPlayerTurnStart;
 
+    [Header("Enemy Creation")]
+    public Transform enemyContainer;
+    public GameObject enemyPrefab;
+    public Vector3 enemyInitialPos;
+    public float enemySpacing;
+
     [Header("combatants")]
     public List<Character> charactersInFight = new List<Character>();
     public List<Enemy> enemiesInFight = new List<Enemy>();
@@ -81,21 +87,22 @@ public class GameManager : MonoBehaviour
     }
 
     void Start(){
+        // get enemies in battle from free roam and set initial position in battle scene
         List<EnemyStats> currentEnemies = BattleManager.instance.currentEnemies;
-        Enemy newEnemy = new Enemy();
-        for(int i = 0; i < currentEnemies.Count; i++){
-            newEnemy.enemyName = currentEnemies[i].enemyName;
-            newEnemy.portrait = currentEnemies[i].portrait;
-            newEnemy.maxHealth = currentEnemies[i].maxHealth;
-            newEnemy.attackDamage = currentEnemies[i].attackDamage;
-            newEnemy.attackTime = currentEnemies[i].attackTime;
-            newEnemy.usableAbilities = currentEnemies[i].usableAbilities;
-            newEnemy.isSpeaker = currentEnemies[i].isSpeaker;
-            newEnemy.dialogueLines = currentEnemies[i].dialogueLines;
-            //enemyChoice.Add(newEnemy);
-            //AddEnemyToFight(newEnemy);
+        Vector3 position = enemyInitialPos;
+
+        // loop through enemies
+        for(int i = 0; i < currentEnemies.Count; ++i) {
+            // instantiate a new enemy game object
+            GameObject newEnemy = Instantiate(enemyPrefab, position, transform.rotation, enemyContainer);
+            
+            // get stats from free roam and set new enemy's stats to them
+            Enemy stats = newEnemy.GetComponent<Enemy>();
+            stats.setStats(currentEnemies[i]);
+
+            // move position to space enemies
+            position = new Vector3(position.x + enemySpacing, position.y, position.z);
         }
-        //Test();
     }
 
     void Update()
