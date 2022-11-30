@@ -27,7 +27,7 @@ public class CameraPan : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.tag == "Player") {
+        if(other.tag == "Player" && panPositions.Count > 0) {
             // disable player movement and log main camera's position
             player.GetComponent<IsometricPlayerMovement>().toggleMovement(false);
             mainCamPos = mainCam.transform.position;

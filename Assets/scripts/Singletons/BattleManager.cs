@@ -59,6 +59,7 @@ public class BattleManager : MonoBehaviour
 
         // unpause free roam and disable enemy
         toggleScene(freeRoamSceneName, true);
+        currentFreeRoamEnemy.setDefeated(true);
         currentFreeRoamEnemy.gameObject.SetActive(false);
     }
 
