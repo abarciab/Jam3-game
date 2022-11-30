@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     public GameObject winScreen;
     public GameObject loseScreen;
 
+
     [Header("misc")]
     public int turnsPassed;
     public int targetEnemy;
@@ -79,6 +80,23 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
+    void Start(){
+        List<EnemyStats> currentEnemies = BattleManager.instance.currentEnemies;
+        Enemy newEnemy = new Enemy();
+        for(int i = 0; i < currentEnemies.Count; i++){
+            newEnemy.enemyName = currentEnemies[i].enemyName;
+            newEnemy.portrait = currentEnemies[i].portrait;
+            newEnemy.maxHealth = currentEnemies[i].maxHealth;
+            newEnemy.attackDamage = currentEnemies[i].attackDamage;
+            newEnemy.attackTime = currentEnemies[i].attackTime;
+            newEnemy.usableAbilities = currentEnemies[i].usableAbilities;
+            newEnemy.isSpeaker = currentEnemies[i].isSpeaker;
+            newEnemy.dialogueLines = currentEnemies[i].dialogueLines;
+            //enemyChoice.Add(newEnemy);
+            //AddEnemyToFight(newEnemy);
+        }
+        //Test();
+    }
 
     void Update()
     {
@@ -123,6 +141,7 @@ public class GameManager : MonoBehaviour
     public void AddEnemyToFight(Enemy enemy) {
         int correctPosition = 0;
         for (int i = 0; i < enemiesInFight.Count; i++) {
+            //print(enemiesInFight[i]);
             if (enemiesInFight[i].transform.position.x < enemy.transform.position.x) {
                 correctPosition += 1;
             }
@@ -139,6 +158,10 @@ public class GameManager : MonoBehaviour
             }
         }
         enemiesInFight.Add(displacedEnemy);
+    }
+
+    public void Test(){
+        print(BattleManager.instance.currentEnemies);
     }
 
     //called from enemy.cs. this goes through all enemies sequentially and calls 'startAttack' on them

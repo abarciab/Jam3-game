@@ -1042,7 +1042,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 103.1, y: 126}
+  m_AnchoredPosition: {x: 105, y: 126}
   m_SizeDelta: {x: 157.354, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &218282019
@@ -3033,12 +3033,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 0ccc508108fa6ed4fa11b4a467d7f609, type: 3}
+  m_Color: {r: 0.49803925, g: 0.49803925, b: 0.49803925, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -3057,9 +3057,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: Bad dude
+  portrait: {fileID: 0}
   maxHealth: 35
   health: 20
-  testDamage: 6
+  attackDamage: 0
   attackTime: 0.5
   usableAbilities:
   - abilityName: Fire Blast
@@ -3074,58 +3075,8 @@ MonoBehaviour:
     castTime: 0.1
     description: AOE Attack
     soundID: 1
-  AoEAbility:
-    abilityName: 
-    numTargets: 3
-    targetAllies: 0
-    turnDuration: 1
-    damagePerTurn: 0
-    abilityChance: 1
-    randomTarget: 0
-    damage: 3
-    comboValue: 0.15
-    castTime: 0.1
-    description: 
-    soundID: 1
-  HealAbility:
-    abilityName: 
-    numTargets: 1
-    targetAllies: 0
-    turnDuration: 1
-    damagePerTurn: 1
-    abilityChance: 1
-    randomTarget: 0
-    damage: -6
-    comboValue: 0.15
-    castTime: 0.1
-    description: 
-    soundID: 7
-  DoTAbility:
-    abilityName: 
-    numTargets: 2
-    targetAllies: 0
-    turnDuration: 1
-    damagePerTurn: 1
-    abilityChance: 1
-    randomTarget: 0
-    damage: 2
-    comboValue: 0.15
-    castTime: 0.1
-    description: 
-    soundID: 0
-  OtherAbility:
-    abilityName: 
-    numTargets: 1
-    targetAllies: 0
-    turnDuration: 1
-    damagePerTurn: 1
-    abilityChance: 1
-    randomTarget: 0
-    damage: 1
-    comboValue: 0.15
-    castTime: 0.1
-    description: 
-    soundID: 0
+  isSpeaker: 0
+  dialogueLines: []
   nameLabel: {fileID: 430997672}
   healthLabel: {fileID: 74768083}
   damageIndicator: {fileID: 1092165676}
@@ -4153,63 +4104,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyName: mediocre dude
+  portrait: {fileID: 0}
   maxHealth: 20
   health: 20
-  testDamage: 4
+  attackDamage: 0
   attackTime: 0.5
   usableAbilities: []
-  AoEAbility:
-    abilityName: 
-    numTargets: 2
-    targetAllies: 0
-    turnDuration: 0
-    damagePerTurn: 0
-    abilityChance: 1
-    randomTarget: 0
-    damage: 2
-    comboValue: 0.15
-    castTime: 0.1
-    description: 
-    soundID: 1
-  HealAbility:
-    abilityName: 
-    numTargets: 2
-    targetAllies: 0
-    turnDuration: 1
-    damagePerTurn: 1
-    abilityChance: 1
-    randomTarget: 0
-    damage: -3
-    comboValue: 0.15
-    castTime: 0.1
-    description: 
-    soundID: 7
-  DoTAbility:
-    abilityName: 
-    numTargets: 1
-    targetAllies: 0
-    turnDuration: 1
-    damagePerTurn: 1
-    abilityChance: 1
-    randomTarget: 0
-    damage: 1
-    comboValue: 0.15
-    castTime: 0.1
-    description: 
-    soundID: 0
-  OtherAbility:
-    abilityName: 
-    numTargets: 1
-    targetAllies: 0
-    turnDuration: 1
-    damagePerTurn: 1
-    abilityChance: 1
-    randomTarget: 0
-    damage: 1
-    comboValue: 0.15
-    castTime: 0.1
-    description: 
-    soundID: 0
+  isSpeaker: 0
+  dialogueLines: []
   nameLabel: {fileID: 1883895498}
   healthLabel: {fileID: 530038430}
   damageIndicator: {fileID: 734253591}

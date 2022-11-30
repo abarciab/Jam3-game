@@ -8,13 +8,13 @@ public class EnemyStats {
     public string enemyName;
     public Sprite portrait;
     public int maxHealth;
+    public float attackDamage;
     public float attackTime;
-    public List<Ability> abilities;
+    public List<Ability> usableAbilities;
     public bool isSpeaker = false;
     [Tooltip("NOTE: First line is intro line said at beginning of battle")]
     public List<string> dialogueLines;
 }
-
 public class FreeRoamEnemy : MonoBehaviour
 {
     [SerializeField] private Transform fade;
@@ -33,6 +33,7 @@ public class FreeRoamEnemy : MonoBehaviour
     private bool defeated;
 
     public List<EnemyStats> enemiesInEncounter;
+    public List<Enemy> enemyList = new List<Enemy>();
 
     private void Awake() {
         enemyTrigger = GetComponent<Collider2D>();
@@ -44,6 +45,7 @@ public class FreeRoamEnemy : MonoBehaviour
         if(other.collider.tag == "Player")
             StartCoroutine("startTransition");
     }
+    
 
     private void OnDisable() {
         // create a drop
