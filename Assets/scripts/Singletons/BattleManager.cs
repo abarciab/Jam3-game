@@ -16,6 +16,7 @@ public class BattleManager : MonoBehaviour
     private void Awake() {
         instance = this;
     }
+    
 
     private void toggleScene(string sceneName, bool active) {
         foreach(GameObject gmobj in SceneManager.GetSceneByName(sceneName).GetRootGameObjects())
@@ -47,7 +48,7 @@ public class BattleManager : MonoBehaviour
         if(!SceneManager.GetSceneByName(battleSceneName).isLoaded){
             SceneManager.LoadScene(battleSceneName, LoadSceneMode.Additive); 
             //GameManager.instance.Test();
-            
+
         }
     }
 

@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     public GameObject winScreen;
     public GameObject loseScreen;
 
+
     [Header("misc")]
     public int turnsPassed;
     public int targetEnemy;

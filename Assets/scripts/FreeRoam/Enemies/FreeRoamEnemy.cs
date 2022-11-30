@@ -31,6 +31,7 @@ public class FreeRoamEnemy : MonoBehaviour
         if(other.tag == "Player")
             StartCoroutine("startTransition");
     }
+    
 
     private IEnumerator startTransition() {
         // play fade and start battle scene after fade

@@ -26,10 +26,11 @@ public class Enemy : MonoBehaviour
     public int deathSoundID = 5;
     public List<StatusEffect> activeStatusEffects = new List<StatusEffect>();   //hasn't been implemented yet, but these should be created when duration > 1 in damage function, and triggered onEnemyTurnStart
 
+
     //basic setup for some UI labels and adding listeners to events
     private void Start() {
         nameLabel.text = enemyName;
-        
+
         GameManager.instance.AddEnemyToFight(this);
         health = maxHealth;
         healthLabel.text = health + "/" + maxHealth;
