@@ -7,21 +7,22 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float range;
     [SerializeField] private float idleTime;
-    [SerializeField] private Vector2 originalPos;
     [SerializeField] private Transform player;
     private Rigidbody2D body;
     private Rigidbody2D playerBody;
     private Vector2 movement;
+    private Vector2 originalPos;
     private bool movingBack = false;
 
     private void Awake() {
         body = GetComponent<Rigidbody2D>();
         playerBody = player.GetComponent<Rigidbody2D>();
+        originalPos = body.position;
     }
 
     private void FixedUpdate() {
         // if player is in range
-        if(distanceToPlayer() < range) {
+        if(Vector2.Distance(body.position, playerBody.position) < range) {
             // stop move back efforts
             movingBack = false;
             StopCoroutine("idleTimer");
@@ -44,12 +45,6 @@ public class EnemyMovement : MonoBehaviour
             if(body.position != originalPos)
                 StartCoroutine("idleTimer");
         }
-    }
-
-    private float distanceToPlayer() {
-        float xEquation = Mathf.Pow((player.position.x - body.position.x), 2);
-        float yEquation = Mathf.Pow((player.position.y - body.position.y), 2);
-        return Mathf.Sqrt(xEquation + yEquation);
     }
 
     private IEnumerator idleTimer() {
