@@ -18,6 +18,8 @@ public class EnemyMovement : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         playerBody = player.GetComponent<Rigidbody2D>();
         originalPos = body.position;
+
+        Physics2D.IgnoreLayerCollision(8, 8);
     }
 
     private void FixedUpdate() {

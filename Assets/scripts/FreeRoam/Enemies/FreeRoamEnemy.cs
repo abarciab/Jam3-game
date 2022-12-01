@@ -51,7 +51,7 @@ public class FreeRoamEnemy : MonoBehaviour
 
     private void OnDisable() {
         // create a drop
-        if(defeated) {
+        if(defeated && dropName != "") {
             drop.GetComponent<SpriteRenderer>().sprite = dropSprite;
             drop.GetComponent<EnemyDrop>().uiImage = uiImage;
             drop.GetComponent<EnemyDrop>().dropName = dropName;
@@ -64,6 +64,7 @@ public class FreeRoamEnemy : MonoBehaviour
         fade.gameObject.SetActive(true);
         fade.GetComponent<Animator>().Play("FadeOut");
         yield return new WaitUntil(() => fade.GetComponent<FadeTransition>().transitionOver());
+        print("alkdfjad");
         BattleManager.instance.startBattleScene(this);
     }
 

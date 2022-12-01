@@ -64,7 +64,7 @@ public class CameraPan : MonoBehaviour
     private void Update() {
         if(activated) {
             // get next position if current position reached
-            if(panCam.position == panPositions[listIndex])
+            if(Vector3.Distance(panCam.position, panPositions[listIndex]) < 0.1)
                 getNextPosition();
             
             // lerp camera based on speed and distance covered
@@ -73,7 +73,7 @@ public class CameraPan : MonoBehaviour
             panCam.position = Vector3.Lerp(panCam.position, panPositions[listIndex], distanceFraction);
 
             // if camera reaches original position
-            if(panCam.position == panPositions[listIndex] && listIndex == 0) {
+            if(Vector3.Distance(panCam.position, panPositions[listIndex]) < 0.1 && listIndex == 0) {
                 // toggle player movement
                 player.GetComponent<IsometricPlayerMovement>().toggleMovement(true);
 

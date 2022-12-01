@@ -14,7 +14,7 @@ TagManager:
   - UI
   - Party
   - EnemyDetector
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -45,7 +45,7 @@ TagManager:
   - name: Background
     uniqueID: 3015548877
     locked: 0
-  - name: Player
+  - name: Foreground
     uniqueID: 3653495463
     locked: 0
   - name: Enemy

@@ -19,6 +19,7 @@ public class BattleManager : MonoBehaviour
     
 
     private void toggleScene(string sceneName, bool active) {
+        print("2");
         foreach(GameObject gmobj in SceneManager.GetSceneByName(sceneName).GetRootGameObjects())
             if(gmobj.tag != "GameController") {
                 gmobj.SetActive(active);
@@ -26,6 +27,7 @@ public class BattleManager : MonoBehaviour
                 if(gmobj.tag == "PlayerParty")
                     gmobj.GetComponentInChildren<IsometricPlayerMovement>().toggleMovement(active);
             }
+        print("3");
     }
 
     public void startBattleScene(FreeRoamEnemy enemy) {
@@ -33,10 +35,12 @@ public class BattleManager : MonoBehaviour
         currentFreeRoamEnemy = enemy;
         currentEnemies = enemy.enemiesInEncounter;
         
+        print("1");
         // pause free roam scene and start battle scene
         toggleScene(freeRoamSceneName, false);
         if(!SceneManager.GetSceneByName(battleSceneName).isLoaded)
             SceneManager.LoadScene(battleSceneName, LoadSceneMode.Additive); 
+        print("4");
     }
 
     public void endBattleWin() {

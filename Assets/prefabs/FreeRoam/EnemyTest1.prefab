@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6193638170569933338}
   - component: {fileID: 6193638170569933337}
   - component: {fileID: 6193638170569933336}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyTest1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6193638170569933341}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.3, y: 0.15, z: -3.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -149,25 +149,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fade: {fileID: 0}
   drop: {fileID: 4937988708814452869, guid: d4c2897a6bfb1f2439b5c1caefd14e77, type: 3}
+  dropName: 
   dropSprite: {fileID: 0}
   uiImage: {fileID: 0}
   enemiesInEncounter:
-  - enemyName: Test Enemy1
-    portrait: {fileID: 21300000, guid: 7feaf81968052be43b3a468756c076e5, type: 3}
+  - enemyName: EasyCrab
+    portrait: {fileID: 21300000, guid: 9ee1eb40263104f4bb18c096e9d8ebf5, type: 3}
     maxHealth: 25
+    attackDamage: 0
     attackTime: 0.5
-    abilities:
-    - abilityName: Test Ability
-      numTargets: 3
+    usableAbilities:
+    - abilityName: 
+      numTargets: 0
       targetAllies: 0
-      turnDuration: 1
-      damagePerTurn: 1
-      abilityChance: 1
+      turnDuration: 0
+      damagePerTurn: 0
+      abilityChance: 0
       randomTarget: 0
-      damage: 2
-      comboValue: 1
-      castTime: 1
-      description: Test
+      damage: 0
+      comboValue: 0
+      castTime: 0
+      description: 
       soundID: 0
     isSpeaker: 1
     dialogueLines:
@@ -176,6 +178,7 @@ MonoBehaviour:
     - Second dialogue
     - Third dialogue
     - This is a generic line
+  enemyList: []
 --- !u!114 &6193638170569933336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,5 +194,4 @@ MonoBehaviour:
   speed: 0.75
   range: 2
   idleTime: 2
-  originalPos: {x: 6.3, y: 0.15}
   player: {fileID: 0}
