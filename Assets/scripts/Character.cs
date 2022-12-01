@@ -20,6 +20,7 @@ public class Character : MonoBehaviour
     public TextMeshProUGUI damageIndicator;
     public TextMeshProUGUI nameLabel;
     public TextMeshProUGUI healthLabel;
+    public Slider healthSlider;
     public TextMeshProUGUI abilityDesciprtionLabel;
 
     [Header("Misc")]
@@ -37,6 +38,7 @@ public class Character : MonoBehaviour
 
         abilityDesciprtionLabel.text = ability.description;
         healthLabel.text = health + "/" + maxHealth;
+        healthSlider.value = maxHealth/health;
         GameManager.onUpdateInput += CheckPattern;
         GameManager.onEnemyTurnStart += ResetCharacter;
         GameManager.instance.charactersInFight.Add(this);
@@ -134,18 +136,19 @@ public class Character : MonoBehaviour
     //this script is responsible for coloring the patternText appropriatly. eventually, it might be nice to have the patterns shown with sprites or icons, which would require this to change
     void UpdatePatternLabel() {
 
-        patternLabel.text = "";
+        patternLabel.text = "[ ";
         if (currentPatternPos >= 0)
             patternLabel.text = "<color=red>";
         for (int i = 0; i < pattern.Length; i++) {
             patternLabel.text += pattern[i].ToString().ToUpper();
             if (i < pattern.Length - 1) {
-                patternLabel.text += ", ";
+                patternLabel.text += " ";
             }
             if (i == currentPatternPos) {
                 patternLabel.text += "</color>";
             }
         }
+        patternLabel.text += " ]";
     }
 
     //this function is called when someone damages (or heals) this character. almost identical to the Damage() function in Enemy.cs
@@ -154,6 +157,7 @@ public class Character : MonoBehaviour
         damageIndicator.gameObject.SetActive(false);
         health = health - damageAmount;
         healthLabel.text = (Mathf.Round(health * 10) / 10) + "/" + maxHealth;
+        healthSlider.value = maxHealth / health;
         damageIndicator.text = Mathf.Abs(Mathf.Round(damageAmount * 10) / 10).ToString();
         damageIndicator.color = damageAmount < 0 ? Color.green : Color.red;
         damageIndicator.gameObject.SetActive(true);

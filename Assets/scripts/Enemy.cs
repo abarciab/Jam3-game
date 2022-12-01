@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Enemy : MonoBehaviour
@@ -19,7 +20,7 @@ public class Enemy : MonoBehaviour
 
     [Header("references")]
     public TextMeshProUGUI nameLabel;
-    public TextMeshProUGUI healthLabel;
+    public Slider healthBar;
     public TextMeshProUGUI damageIndicator;
 
     [Header("misc")]
@@ -34,7 +35,8 @@ public class Enemy : MonoBehaviour
 
         GameManager.instance.AddEnemyToFight(this);
         health = maxHealth;
-        healthLabel.text = health + "/" + maxHealth;
+        healthBar.value = maxHealth / health;
+        //healthBar.text = health + "/" + maxHealth;
         GameManager.onEnemyTurnStart += AddToAttackQueue;
     }
 
@@ -140,7 +142,8 @@ public class Enemy : MonoBehaviour
         health = health - damageAmount;
 
         //display it, rounding to 1 decimal point and activating the damageIndicator
-        healthLabel.text = (Mathf.Round(health * 10) / 10) + "/" + maxHealth;
+        //healthBar.text = (Mathf.Round(health * 10) / 10) + "/" + maxHealth;
+        healthBar.value = maxHealth / health;
         damageIndicator.text = Mathf.Abs(Mathf.Round(damageAmount * 10) / 10).ToString();
         damageIndicator.color = damageAmount < 0 ? Color.green : Color.white;
         damageIndicator.gameObject.SetActive(false);    //the animation of the indicator start when the gameobject is turned on, so we turn it off to reset it
