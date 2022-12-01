@@ -12,7 +12,8 @@ public class EnemyStats {
     public float attackTime;
     public List<Ability> usableAbilities;
     public bool isSpeaker = false;
-    [Tooltip("NOTE: First line is intro line said at beginning of battle")]
+    [Tooltip("NOTE: First line is intro line said at beginning of battle." +
+             "Last line is a generic line that is repeated when all other lines are said.")]
     public List<string> dialogueLines;
 }
 public class FreeRoamEnemy : MonoBehaviour
@@ -64,9 +65,7 @@ public class FreeRoamEnemy : MonoBehaviour
         // play fade and start battle scene after fade
         fade.gameObject.SetActive(true);
         fade.GetComponent<Animator>().Play("FadeOut");
-        print("-1");
         yield return new WaitUntil(() => fade.GetComponent<FadeTransition>().transitionOver());
-        print("0");
         BattleManager.instance.startBattleScene(this);
     }
 

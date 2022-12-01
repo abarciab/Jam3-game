@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     public bool isSpeaker = false;
     [Tooltip("NOTE: First line is intro line said at beginning of battle")]
     public List<string> dialogueLines;
+    private int currentLine;
 
     [Header("references")]
     public TextMeshProUGUI nameLabel;
@@ -56,6 +57,14 @@ public class Enemy : MonoBehaviour
         usableAbilities = stats.usableAbilities;
         isSpeaker = stats.isSpeaker;
         dialogueLines = stats.dialogueLines;
+        currentLine = 0;
+    }
+
+    public void sayLine() {
+        GameManager.instance.Log("<color=red>" + enemyName + ": </color>" + dialogueLines[currentLine]);
+
+        if(currentLine < dialogueLines.Count - 1)
+            currentLine++;
     }
 
     //simple handler for the coroutine so that other scripts can call this instead of 'startCoroutine("ReadyAttack")'
@@ -66,7 +75,14 @@ public class Enemy : MonoBehaviour
     //artificial waiting period so that attacks aren't instant. A more refined version of this would probably use attack animations with animation events to trigger Attack() instead
     IEnumerator ReadyAttack()
     {
-        yield return new WaitForSeconds(attackTime);
+        if(isSpeaker) {
+            GameManager.instance.clearLog();
+            sayLine();
+        }
+        yield return new WaitForSeconds(isSpeaker ? GameManager.instance.dialogueTime : attackTime);
+
+        if(isSpeaker)
+            GameManager.instance.clearLog();
         EnemyAction();
     }
 

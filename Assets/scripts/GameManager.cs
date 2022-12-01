@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     public Vector3 enemyInitialPos;
     public float enemyXSpacing;
     public float enemyYSpacing;
+    public float dialogueTime;
 
     [Header("combatants")]
     public List<Character> charactersInFight = new List<Character>();
@@ -88,6 +89,8 @@ public class GameManager : MonoBehaviour
     }
 
     void Start(){
+        clearLog();
+
         // get enemies in battle from free roam and set initial position in battle scene
         List<EnemyStats> currentEnemies = BattleManager.instance.currentEnemies;
         Vector3 position = enemyInitialPos;
@@ -100,6 +103,9 @@ public class GameManager : MonoBehaviour
             // get stats from free roam and set new enemy's stats to them
             Enemy stats = newEnemy.GetComponent<Enemy>();
             stats.setStats(currentEnemies[i]);
+
+            if(stats.isSpeaker)
+                stats.sayLine();
 
             // move position to space enemies
             position = new Vector3(position.x + enemyXSpacing, position.y + enemyYSpacing, position.z);
@@ -222,6 +228,10 @@ public class GameManager : MonoBehaviour
     //mostly here for testing, this function logs strings to the in-game display
     public void Log(string newLine) {
         LogText.text += "\n" + newLine;
+    }
+
+    public void clearLog() {
+        LogText.text = "";
     }
 
     //called from the win and lose screens, this function is required to null out the events. otherwise, they would try to call functions attached to destroyed gameObjects.
