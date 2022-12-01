@@ -8,11 +8,13 @@ public class IsometricPlayerMovement : MonoBehaviour
     [SerializeField] private int collisionLayerNumber;
     private Rigidbody2D body;
     private IsometricAnimator animator;
+    private Vector2 originalPos;
     private bool movementEnabled;
 
     private void Awake() {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<IsometricAnimator>();
+        originalPos = body.position;
         movementEnabled = true;
 
         // ignore collisions for EnemyDetector
@@ -39,5 +41,9 @@ public class IsometricPlayerMovement : MonoBehaviour
 
     public void toggleMovement(bool on) {
         movementEnabled = on;
+    }
+
+    public void resetPosition() {
+        body.position = originalPos;
     }
 }

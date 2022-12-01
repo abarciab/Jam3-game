@@ -163,7 +163,7 @@ public class Character : MonoBehaviour
         damageIndicator.color = damageAmount < 0 ? Color.green : Color.red;
         damageIndicator.gameObject.SetActive(true);
 
-        if (health == 0) {
+        if (health <= 0) {
             Die();
         }
     }

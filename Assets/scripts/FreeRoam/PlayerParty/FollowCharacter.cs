@@ -12,10 +12,12 @@ public class FollowCharacter : MonoBehaviour
     private IsometricAnimator anim;
     private Rigidbody2D body;
     private Vector2 movement;
+    private Vector2 originalPos;
 
     private void Awake() {
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<IsometricAnimator>();
+        originalPos= body.position;
     }
 
     private void Start() {
@@ -42,6 +44,10 @@ public class FollowCharacter : MonoBehaviour
         float xEquation = Mathf.Pow((characterToFollow.position.x - body.position.x), 2);
         float yEquation = Mathf.Pow((characterToFollow.position.y - body.position.y), 2);
         return Mathf.Sqrt(xEquation + yEquation);
+    }
+
+    public void resetPosition() {
+        body.position = originalPos;
     }
 
     // FOR DEBUGGING

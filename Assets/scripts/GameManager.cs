@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour
     public GameObject targetIcon;
     public GameObject winScreen;
     public GameObject loseScreen;
+    public string mainMenuSceneName;
 
 
     [Header("misc")]
@@ -168,6 +169,9 @@ public class GameManager : MonoBehaviour
 
         if(win)
             BattleManager.instance.endBattleWin();
+        else if (!loseScreen.activeInHierarchy)
+            loseScreen.SetActive(true);
+
     }
 
     public void setTargetIcon(int targetNum) {
@@ -269,5 +273,13 @@ public class GameManager : MonoBehaviour
         onEnemyTurnStart = null;
         onPlayerTurnStart = null;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void resetOnLose() {
+        BattleManager.instance.endBattleLose();
+    }
+
+    public void quitGame() {
+        SceneManager.LoadScene(mainMenuSceneName);
     }
 }

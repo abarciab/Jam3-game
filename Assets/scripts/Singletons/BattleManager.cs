@@ -10,6 +10,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private string battleSceneName;
     [SerializeField] private string freeRoamSceneName;
     [SerializeField] private Transform enemyContainer;
+    [SerializeField] private Transform playerParty;
     public List<EnemyStats> currentEnemies { get; private set; }
     public FreeRoamEnemy currentFreeRoamEnemy { get; private set; }
     public List<Enemy> enemyChoice = new List<Enemy>();
@@ -27,6 +28,18 @@ public class BattleManager : MonoBehaviour
                 if(gmobj.tag == "PlayerParty")
                     gmobj.GetComponentInChildren<IsometricPlayerMovement>().toggleMovement(active);
             }
+    }
+
+    private void resetPlayerParty() {
+        foreach(Transform partyMember in playerParty) {
+            IsometricPlayerMovement playerMovement = partyMember.GetComponent<IsometricPlayerMovement>();
+            if(playerMovement)
+                playerMovement.resetPosition();
+            else
+                partyMember.GetComponent<FollowCharacter>().resetPosition();
+            
+            partyMember.GetComponent<MovementLog>()?.log.Clear();
+        }
     }
 
     public void toggleAllEnemyMovement(bool active) {
@@ -56,6 +69,17 @@ public class BattleManager : MonoBehaviour
         toggleAllEnemyMovement(true);
         currentFreeRoamEnemy.setDefeated(true);
         currentFreeRoamEnemy.gameObject.SetActive(false);
+    }
+
+    public void endBattleLose() {
+        // unload battle scene
+        if(SceneManager.GetSceneByName(battleSceneName).isLoaded)
+            SceneManager.UnloadSceneAsync(battleSceneName);
+
+        // unpause free roam and disable enemy
+        toggleScene(freeRoamSceneName, true);
+        resetPlayerParty();
+        toggleAllEnemyMovement(true);
     }
 
     // FOR DEBUGGING
