@@ -9,6 +9,7 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] private string battleSceneName;
     [SerializeField] private string freeRoamSceneName;
+    [SerializeField] private Transform enemyContainer;
     public List<EnemyStats> currentEnemies { get; private set; }
     public FreeRoamEnemy currentFreeRoamEnemy { get; private set; }
     public List<Enemy> enemyChoice = new List<Enemy>();
@@ -28,6 +29,12 @@ public class BattleManager : MonoBehaviour
                     gmobj.GetComponentInChildren<IsometricPlayerMovement>().toggleMovement(active);
             }
         print("3");
+    }
+
+    public void toggleAllEnemyMovement(bool active) {
+        foreach(Transform enemy in enemyContainer) {
+            enemy.GetComponent<EnemyMovement>().enabled = active;
+        }
     }
 
     public void startBattleScene(FreeRoamEnemy enemy) {
@@ -50,6 +57,7 @@ public class BattleManager : MonoBehaviour
 
         // unpause free roam and disable enemy
         toggleScene(freeRoamSceneName, true);
+        toggleAllEnemyMovement(true);
         currentFreeRoamEnemy.setDefeated(true);
         currentFreeRoamEnemy.gameObject.SetActive(false);
     }

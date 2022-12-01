@@ -44,6 +44,7 @@ public class FreeRoamEnemy : MonoBehaviour
         // disable player movement and load stats into battle manager
         if(other.collider.tag == "Player") {
             other.transform.GetComponent<IsometricPlayerMovement>().toggleMovement(false);
+            BattleManager.instance.toggleAllEnemyMovement(false);
             StartCoroutine("startTransition");
         }
     }
@@ -63,8 +64,9 @@ public class FreeRoamEnemy : MonoBehaviour
         // play fade and start battle scene after fade
         fade.gameObject.SetActive(true);
         fade.GetComponent<Animator>().Play("FadeOut");
+        print("-1");
         yield return new WaitUntil(() => fade.GetComponent<FadeTransition>().transitionOver());
-        print("alkdfjad");
+        print("0");
         BattleManager.instance.startBattleScene(this);
     }
 
