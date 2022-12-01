@@ -50,7 +50,8 @@ public class GameManager : MonoBehaviour
     public Transform enemyContainer;
     public GameObject enemyPrefab;
     public Vector3 enemyInitialPos;
-    public float enemySpacing;
+    public float enemyXSpacing;
+    public float enemyYSpacing;
 
     [Header("combatants")]
     public List<Character> charactersInFight = new List<Character>();
@@ -101,7 +102,7 @@ public class GameManager : MonoBehaviour
             stats.setStats(currentEnemies[i]);
 
             // move position to space enemies
-            position = new Vector3(position.x + enemySpacing, position.y, position.z);
+            position = new Vector3(position.x + enemyXSpacing, position.y + enemyYSpacing, position.z);
         }
     }
 
