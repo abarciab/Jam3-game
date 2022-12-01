@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
 
 
     [Header("misc")]
+    public float endWaitTime;
     public int turnsPassed;
     public int targetEnemy;
     public Color normalPatternColor;        //not currently implemented
@@ -78,17 +79,21 @@ public class GameManager : MonoBehaviour
     public int failureSoundID;
     public string currentPattern;
     public bool playerTurn;
+    public bool textHidden;
 
     //see InputReactSound for more details about these two
     bool playSuccessSound;
     bool playSound;
+
+    private bool battleOver;
 
     //setup singleton
     private void Awake() {
         instance = this;
     }
 
-    void Start(){
+    private void Start(){
+        battleOver = false;
         clearLog();
 
         // get enemies in battle from free roam and set initial position in battle scene
@@ -112,17 +117,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         //first, check win/loss. this would be better to check only when a player or enemy dies
-        if (charactersInFight.Count == 0 && turnsPassed > 0) {
-            if (!loseScreen.activeInHierarchy)
-                loseScreen.SetActive(true);
+        if (charactersInFight.Count == 0 && turnsPassed > 0 && !battleOver) {
+            //if (!loseScreen.activeInHierarchy)
+            //    loseScreen.SetActive(true);
+            battleOver = true;
+            clearLog();
+            Log("<color=red>You Lose!</color>");
+            StartCoroutine(endFight(false));
             return;
         }
-        if (enemiesInFight.Count == 0 && turnsPassed > 0) {
-            if (!winScreen.activeInHierarchy)
-                winScreen.SetActive(true);
+        if (enemiesInFight.Count == 0 && turnsPassed > 0 && !battleOver) {
+            //if (!winScreen.activeInHierarchy)
+            //    winScreen.SetActive(true);
+            battleOver = true;
+            clearLog();
+            Log("<color=green>You Win!</color>");
+            StartCoroutine(endFight(true));
             return;
         }
 
@@ -131,15 +144,14 @@ public class GameManager : MonoBehaviour
             int number;
             if (int.TryParse(Input.inputString, out number)) {
                 if (number <= enemiesInFight.Count && number != 0) {
-                    targetEnemy = number - 1;
-                    targetIcon.transform.position = new Vector3(enemiesInFight[targetEnemy].transform.position.x, targetIcon.transform.position.y, targetIcon.transform.position.z);
+                    setTargetIcon(number);
                 }
                 return;
             }
         }
 
         //check if a key was pressed and broadcast which it was
-        if (playerTurn) {
+        if (playerTurn && !battleOver) {
             if (!string.IsNullOrEmpty(Input.inputString)) {
                 currentPattern += Input.inputString;
                 playSuccessSound = false;
@@ -149,6 +161,26 @@ public class GameManager : MonoBehaviour
                     AudioManager.instance.PlayGlobal(playSuccessSound ? successSoundID : failureSoundID, _priority: 0);
             }
         }
+    }
+
+    private IEnumerator endFight(bool win) {
+        yield return new WaitForSeconds(endWaitTime);
+
+        if(win)
+            BattleManager.instance.endBattleWin();
+    }
+
+    public void setTargetIcon(int targetNum) {
+        targetEnemy = targetNum - 1;
+        targetIcon.transform.position = new Vector3(enemiesInFight[targetEnemy].transform.position.x, targetIcon.transform.position.y, targetIcon.transform.position.z);
+    }
+
+    public bool checkForSpeakers() {
+        foreach(Enemy enemy in enemiesInFight) {
+            if(enemy.isSpeaker)
+                return true;
+        }
+        return false;
     }
 
     //there's probably a better way todo this, but this script ensures that enemies are sorted by xPosition in the list, so that selecting them makes more sense visually (i.e. pressing '1' selects the leftmost one, then '2' selects the enemy to the right)
@@ -172,10 +204,6 @@ public class GameManager : MonoBehaviour
             }
         }
         enemiesInFight.Add(displacedEnemy);
-    }
-
-    public void Test(){
-        print(BattleManager.instance.currentEnemies);
     }
 
     //called from enemy.cs. this goes through all enemies sequentially and calls 'startAttack' on them
@@ -218,6 +246,7 @@ public class GameManager : MonoBehaviour
 
     //...starts the player turn...
     public void StartPlayerTurn() {
+        textHidden = false;
         currentPattern = "";
         playerTurn = true;
         turnLabel.text = "Your turn";

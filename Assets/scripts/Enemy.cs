@@ -76,6 +76,7 @@ public class Enemy : MonoBehaviour
     IEnumerator ReadyAttack()
     {
         if(isSpeaker) {
+            yield return new WaitForSeconds(attackTime);
             GameManager.instance.clearLog();
             sayLine();
         }
@@ -83,6 +84,11 @@ public class Enemy : MonoBehaviour
 
         if(isSpeaker)
             GameManager.instance.clearLog();
+        else if(!GameManager.instance.textHidden && !GameManager.instance.checkForSpeakers()) {
+            print("yo");
+            GameManager.instance.textHidden = true;
+            GameManager.instance.clearLog();
+        }
         EnemyAction();
     }
 
@@ -175,6 +181,8 @@ public class Enemy : MonoBehaviour
         print(enemyName + " died!!!");
         GameManager.instance.enemiesInFight.Remove(this);
         GameManager.onEnemyTurnStart -= AddToAttackQueue;
+        if(GameManager.instance.enemiesInFight.Count > 0)
+            GameManager.instance.setTargetIcon(1);
         AudioManager.instance.PlayGlobal(deathSoundID);
         Destroy(gameObject);
     }

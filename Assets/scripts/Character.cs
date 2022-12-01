@@ -99,6 +99,7 @@ public class Character : MonoBehaviour
             }
         }
 
+        GameManager.instance.clearLog();
         int numTargets = ability.targetAllies ? selectedAllyTargets.Count : selectedEnemyTargets.Count;
         for (int i = 0; i < numTargets; i++) {                      //then we actually damage/heal the targets
             float abilityDamage = ability.damage * (GameManager.instance.comboScript.GetComboValue());
@@ -113,7 +114,7 @@ public class Character : MonoBehaviour
         }
         
         //lastly, we update the combo meter, play the right sounds, and call waitThenReset(which ends the player turn)
-        GameManager.instance.comboScript.AddCombo(ability.comboValue);          
+        GameManager.instance.comboScript.AddCombo(ability.comboValue);
         AudioManager.instance.PlayGlobal(ability.soundID, _priority: 1);
         if (gameObject != null)
             StartCoroutine("WaitThenReset");

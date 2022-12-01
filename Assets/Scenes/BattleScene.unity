@@ -1594,6 +1594,7 @@ MonoBehaviour:
   targetIcon: {fileID: 639098558}
   winScreen: {fileID: 2091773736}
   loseScreen: {fileID: 533473995}
+  endWaitTime: 2
   turnsPassed: 0
   targetEnemy: 0
   normalPatternColor: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 0}
