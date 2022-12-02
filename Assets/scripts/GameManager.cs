@@ -243,7 +243,7 @@ public class GameManager : MonoBehaviour
     //called from enemy.cs. this goes through all enemies sequentially and calls 'startAttack' on them
     public void CompleteAttack(Enemy _enemy) {
         enemyActionQueue.Remove(_enemy);
-        print("removing " + _enemy.name + " from queue. remaining: " + enemyActionQueue.Count);
+        //print("removing " + _enemy.name + " from queue. remaining: " + enemyActionQueue.Count);
         
         
         if (enemyActionQueue.Count > 0 && enemyActionQueue[0] != null) {

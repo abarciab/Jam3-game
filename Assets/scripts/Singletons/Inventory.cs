@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour
 
     public List<GameObject> Sprites;
     public List<string> requiredItems;
+    int numCollected;
 
     private void Awake() {
         instance = this;
@@ -23,10 +24,9 @@ public class Inventory : MonoBehaviour
                 Sprites[i].GetComponent<Image>().color = new Color(1, 1, 1, 1);
             }
         }
-        if(requiredItems.Contains(dropName))
-            requiredItems.Remove(dropName);
+        numCollected++;
 
-        if (requiredItems.Count == 0) {
+        if (numCollected == 4) {
             BattleManager.instance.winGame();
         }
     }

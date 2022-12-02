@@ -173,7 +173,7 @@ public class Enemy : MonoBehaviour
 
     //simple attack, where a random character is picked and damage is dealt.
     void Attack() {
-        print("Attacking");
+        //print("Attacking");
         Character target = GameManager.instance.charactersInFight[Random.Range(0, GameManager.instance.charactersInFight.Count)];
         GameManager.instance.Log(enemyName + " attacks " + target.characterName + " for " + attackDamage + " dmg");
         target.Damage(attackDamage);
@@ -254,12 +254,12 @@ public class Enemy : MonoBehaviour
     void Die() {
 
         if (!GameManager.instance.playerTurn) {
-            print("ending attack");
+            //print("ending attack");
             GameManager.instance.CompleteAttack(this);
         }
         GameManager.instance.revealVines = revealVines;
         GameManager.instance.revealHook = revealHook;
-        print(enemyName + " died!!!");
+        //print(enemyName + " died!!!");
         GameManager.instance.totalScoreForThisFight += pointValue;
         GameManager.instance.enemiesInFight.Remove(this);
         GameManager.onEnemyTurnStart -= AddToAttackQueue;
