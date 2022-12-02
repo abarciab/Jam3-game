@@ -699,6 +699,7 @@ GameObject:
   - component: {fileID: 1692763194}
   - component: {fileID: 1692763196}
   - component: {fileID: 1692763195}
+  - component: {fileID: 1692763197}
   m_Layer: 5
   m_Name: credits
   m_TagString: Untagged
@@ -746,8 +747,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Credits:\n\nAidan \t- background and level design\nMason \t- lead programmer\nAndi
-    \t- combat programmer\nAidan \t- original concept/prototype"
+  m_text: "Credits:\n\nprogramming\nMason \t- lead programmer\nAndi \t- combat programmer\n\nart:\nEd\t-UI
+    art\nAidan\t-UI implementation & animation\nKennedy\t-robot sprites & animation\nJacob\t-Enemy
+    art & animations\nJacob\t-Icons\nAidan\t-tilemap\n\nDesign & Sound:\nAndi\t-Music\nMason\t-sound
+    effects\nAidan \t- original concept/prototype\nAidan\t-Level design\nEd\t-Ui
+    design"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4b28088bd46630e43b4614bd80889307, type: 2}
   m_sharedMaterial: {fileID: -8757946050895935648, guid: 4b28088bd46630e43b4614bd80889307, type: 2}
@@ -824,6 +828,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1692763193}
   m_CullTransparentMesh: 1
+--- !u!95 &1692763197
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692763193}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4858c79adb564804d8ce8c9989238e82, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2027291731
 GameObject:
   m_ObjectHideFlags: 0
