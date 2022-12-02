@@ -149,6 +149,7 @@ public class GameManager : MonoBehaviour
         if (charactersInFight.Count == 0 && turnsPassed > 0 && !battleOver) {
             battleOver = true;
             clearLog();
+            AudioManager.instance.PlayGlobal(14, _priority: 2);
             Log("<color=red>You Lose!</color>");
             StartCoroutine(endFight(false));
             return;
@@ -157,6 +158,7 @@ public class GameManager : MonoBehaviour
             battleOver = true;
             clearLog();
             Log("<color=green>You Win!</color>");
+            AudioManager.instance.PlayGlobal(15);
             StartCoroutine(endFight(true));
             return;
         }
@@ -177,7 +179,6 @@ public class GameManager : MonoBehaviour
             if (!string.IsNullOrEmpty(Input.inputString)) {
                 currentPattern += Input.inputString;
                 playSuccessSound = false;
-
                 onUpdateInput?.Invoke();
                 if (playSound)
                     AudioManager.instance.PlayGlobal(playSuccessSound ? successSoundID : failureSoundID, _priority: 0);
@@ -189,16 +190,12 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(endWaitTime);
 
         if (win) {
-            print("win");
-            AudioManager.instance.PlayGlobal(15);
             BattleManager.instance.endBattleWin();
         }
         else if (!loseScreen.activeInHierarchy) {
             print("lose");
-            AudioManager.instance.PlayGlobal(14, _priority: 2);
             loseScreen.SetActive(true);
         }
-
     }
 
     public void setTargetIcon(int targetNum) {

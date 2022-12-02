@@ -11,7 +11,7 @@ public class pickup : MonoBehaviour
             AudioManager.instance.PlayGlobal(-4);
             for (int i = 0; i < hit.transform.parent.childCount; i++) {
                 var stats = hit.transform.parent.GetChild(i).GetComponent<PartyMemberStats>();
-                stats.currentHealth = Mathf.Min(hit.currentHealth + healthIncrease, hit.maxHealth);
+                stats.currentHealth = Mathf.Min(stats.currentHealth + healthIncrease, stats.maxHealth);
             }
             Destroy(gameObject);
         }

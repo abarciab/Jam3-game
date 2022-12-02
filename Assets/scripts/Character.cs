@@ -202,7 +202,9 @@ public class Character : MonoBehaviour
             effectAmount.text = Mathf.Abs(totalDamage).ToString(); ;
             effectAmount.color = GameManager.instance.healColor;
         }
-        Damage(totalDamage);
+        if (totalDamage != 0) {
+            Damage(totalDamage);
+        }   
     }
 
     private void Start()

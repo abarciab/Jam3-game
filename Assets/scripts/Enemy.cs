@@ -55,11 +55,15 @@ public class Enemy : MonoBehaviour
 
     void ProcessStatusEffects()
     {
+        float totalDamage = 0;
         foreach (var effect in activeStatusEffects) {
             if (effect.turnsLeft > 0) {
                 effect.turnsLeft -= 1;
-                Damage(effect.damagePerTurn);
+                totalDamage += effect.damagePerTurn;
             }
+        }
+        if (Mathf.Abs(totalDamage) > 0) {
+            Damage(totalDamage);
         }
     }
 
@@ -148,6 +152,7 @@ public class Enemy : MonoBehaviour
 
     //simple attack, where a random character is picked and damage is dealt.
     void Attack() {
+        print("Attacking");
         Character target = GameManager.instance.charactersInFight[Random.Range(0, GameManager.instance.charactersInFight.Count)];
         GameManager.instance.Log(enemyName + " attacks " + target.characterName + " for " + attackDamage + " dmg");
         target.Damage(attackDamage);
