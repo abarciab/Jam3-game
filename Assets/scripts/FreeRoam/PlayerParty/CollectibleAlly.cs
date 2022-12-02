@@ -25,6 +25,7 @@ public class CollectibleAlly : MonoBehaviour
     public string pattern;
     public Sprite portrait;
     public Ability ability;
+    public bool round;
 
     private BoxCollider2D box;
 
@@ -34,6 +35,8 @@ public class CollectibleAlly : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag == "Player") {
+            print("pickedup");
+            AudioManager.instance.PlayGlobal(-3);
             GetComponent<BoxCollider2D>().enabled = false;
             GameObject newAlly = Instantiate(partyMemberPrefab, transform.position, transform.rotation, partyContainer);
             setFollowSettings(newAlly);
@@ -48,6 +51,9 @@ public class CollectibleAlly : MonoBehaviour
 
     private void setFollowSettings(GameObject ally) {
         FollowCharacter follow = ally.transform.GetComponent<FollowCharacter>();
+        ally.GetComponent<IsometricAnimator>().round = round;
+        ally.GetComponent<IsometricAnimator>().square = !round;
+        ally.GetComponent<IsometricAnimator>().updateShape();
         follow.characterToFollow = partyContainer.GetChild(partyContainer.childCount - 2);
         follow.speed = speed;
         follow.minDistanceToCharacter = minDistanceToCharacter;

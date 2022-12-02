@@ -80,13 +80,17 @@ public class GameManager : MonoBehaviour
     public float endWaitTime;
     public int turnsPassed;
     public int targetEnemy;
-    public Color normalPatternColor;        //not currently implemented
-    public Color typedPatternColor;         //not currently implemented
+    Color normalPatternColor;        //not currently implemented
+    Color typedPatternColor;         //not currently implemented
     public int successSoundID;
     public int failureSoundID;
     public string currentPattern;
     public bool playerTurn;
     public bool textHidden;
+    public Color fireColor;
+    public Color healColor;
+    public Sprite fireImg;
+    public Sprite heartImg;
 
     //see InputReactSound for more details about these two
     bool playSuccessSound;
@@ -100,6 +104,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start(){
+        AudioManager.instance.PlayMusic(8);
         battleOver = false;
         clearLog();
 
@@ -268,7 +273,7 @@ public class GameManager : MonoBehaviour
         currentPattern = "";
         playerTurn = true;
         turnLabel.text = "Your turn";
-
+        AudioManager.instance.PlayGlobal(9, _priority: 1);
         onPlayerTurnStart?.Invoke();
     }
 

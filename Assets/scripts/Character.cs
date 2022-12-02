@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.SceneManagement;
 
 public class Character : MonoBehaviour
 {
@@ -23,9 +24,12 @@ public class Character : MonoBehaviour
     public TextMeshProUGUI healthLabel;
     public Slider healthSlider;
     public TextMeshProUGUI abilityDesciprtionLabel;
+    public Image effectImage;
+    public TextMeshProUGUI effectAmount;
+    private AudioSource source;
 
     [Header("Misc")]
-    public List<StatusEffect> ActiveStatusEffects = new List<StatusEffect>(); //hasn't been implemented yet, but these should be created when duration > 1 in damage function, and triggered onPlayerTurnStart
+    public List<StatusEffect> activeStatusEffects = new List<StatusEffect>(); //hasn't been implemented yet, but these should be created when duration > 1 in damage function, and triggered onPlayerTurnStart
 
     //private variables
     int currentPatternPos = -1;
@@ -139,22 +143,64 @@ public class Character : MonoBehaviour
         GameManager.instance.EndPlayerTurn();
     }
 
-    //this script is responsible for coloring the patternText appropriatly. eventually, it might be nice to have the patterns shown with sprites or icons, which would require this to change
+    //this function is responsible for coloring the patternText appropriatly. eventually, it might be nice to have the patterns shown with sprites or icons, which would require this to change
     void UpdatePatternLabel() {
-
-        patternLabel.text = "[ ";
+        if (!GameManager.instance.playerTurn) {
+            patternLabel.text = "<color=#676767>[ ";
+        }
+        else {
+            patternLabel.text = "[ ";
+        }
         if (currentPatternPos >= 0)
-            patternLabel.text = "<color=red>";
+            patternLabel.text = "[ <color=red>";
         for (int i = 0; i < pattern.Length; i++) {
             patternLabel.text += pattern[i].ToString().ToUpper();
             if (i < pattern.Length - 1) {
                 patternLabel.text += " ";
             }
-            if (i == currentPatternPos) {
+            if (i == currentPatternPos && GameManager.instance.playerTurn) {
                 patternLabel.text += "</color>";
             }
         }
         patternLabel.text += " ]";
+        if (!GameManager.instance.playerTurn) {
+            patternLabel.text += "</color>";
+        }
+    }
+
+    void ProcessStatusEffects()
+    {
+        UpdatePatternLabel();
+        float totalDamage = 0;
+        foreach (var effect in activeStatusEffects) {
+            if (effect.turnsLeft > 0) {
+                effect.turnsLeft -= 1;
+                totalDamage += effect.damagePerTurn;
+            }
+        }
+        effectImage.gameObject.SetActive(false);
+        if (totalDamage > 0) {
+            AudioManager.instance.PlayHere(10, source);
+            effectImage.sprite = GameManager.instance.fireImg;
+            effectImage.gameObject.SetActive(true);
+            effectAmount.text = totalDamage.ToString();
+            effectAmount.color = GameManager.instance.fireColor;
+        }
+        if (totalDamage < 0) {
+            effectImage.sprite = GameManager.instance.heartImg;
+            effectImage.gameObject.SetActive(true);
+            effectAmount.text = Mathf.Abs(totalDamage).ToString(); ;
+            effectAmount.color = GameManager.instance.healColor;
+        }
+        Damage(totalDamage);
+    }
+
+    private void Start()
+    {
+        if (GetComponent<AudioSource>() == null) { source = gameObject.AddComponent<AudioSource>();  }
+        healthLabel.text = (Mathf.Round(health * 10) / 10).ToString();
+        healthSlider.value = health/maxHealth;
+        GameManager.onPlayerTurnStart += ProcessStatusEffects;
     }
 
     //basic setup for some UI labels and adding listeners to events
@@ -167,6 +213,7 @@ public class Character : MonoBehaviour
         characterName = stats.characterName;
         nameLabel.text = stats.characterName;
         pattern = stats.pattern.ToUpper();
+        ability = stats.ability;
         UpdatePatternLabel();
 
         abilityDesciprtionLabel.text = stats.ability.description;
@@ -180,10 +227,18 @@ public class Character : MonoBehaviour
     //this function is called when someone damages (or heals) this character. almost identical to the Damage() function in Enemy.cs
     public void Damage(float damageAmount, int duration = 1, float damagePerTurn = 1)
     {
+        if (duration > 1) {
+            var newEffect = new StatusEffect();
+            newEffect.damagePerTurn = damagePerTurn;
+            newEffect.turnsLeft = duration - 1;
+            activeStatusEffects.Add(newEffect);
+        }
+
         damageIndicator.gameObject.SetActive(false);
         health = health - damageAmount;
-        healthLabel.text = (Mathf.Round(health * 10) / 10) + "/" + maxHealth;
-        healthSlider.value = maxHealth / health;
+        healthLabel.text = (Mathf.Round(health * 10) / 10).ToString();
+        print("max: " + maxHealth + ", health: " + health);
+        healthSlider.value = health / maxHealth;
         damageIndicator.text = Mathf.Abs(Mathf.Round(damageAmount * 10) / 10).ToString();
         damageIndicator.color = damageAmount < 0 ? Color.green : Color.red;
         damageIndicator.gameObject.SetActive(true);
@@ -200,6 +255,7 @@ public class Character : MonoBehaviour
         transferStats();
         GameManager.onUpdateInput -= CheckPattern;
         GameManager.onEnemyTurnStart -= ResetCharacter;
+        GameManager.onPlayerTurnStart -= ProcessStatusEffects;
         GameManager.instance.charactersInFight.Remove(this);
         Destroy(gameObject);
     }

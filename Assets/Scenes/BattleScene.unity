@@ -339,6 +339,24 @@ MonoBehaviour:
     volume: 0.866
     pitch: 1
     looping: 0
+  - name: music
+    ID: 8
+    clip: {fileID: 8300000, guid: 2d270f088fb646146820f79f60991c52, type: 3}
+    volume: 0.5
+    pitch: 1
+    looping: 1
+  - name: player turn start
+    ID: 9
+    clip: {fileID: 8300000, guid: d793cf9de9d8dcb4699d3814cf55f62a, type: 3}
+    volume: 1
+    pitch: 1.82
+    looping: 0
+  - name: burn damage sound
+    ID: 10
+    clip: {fileID: 8300000, guid: c4d6b6b1e43f0364698d6dbf09ae46f7, type: 3}
+    volume: 1
+    pitch: 1.82
+    looping: 0
   music: {fileID: 427916742}
   global: {fileID: 294705955}
 --- !u!4 &137575274
@@ -1872,13 +1890,15 @@ MonoBehaviour:
   endWaitTime: 2
   turnsPassed: 0
   targetEnemy: 0
-  normalPatternColor: {r: 0.9056604, g: 0.9056604, b: 0.9056604, a: 0}
-  typedPatternColor: {r: 1, g: 0.4448824, b: 0, a: 0}
   successSoundID: 2
   failureSoundID: 3
   currentPattern: 
   playerTurn: 1
   textHidden: 0
+  fireColor: {r: 1, g: 0.4431373, b: 0, a: 1}
+  healColor: {r: 1, g: 0.5330188, b: 0.8134206, a: 1}
+  fireImg: {fileID: 21300000, guid: aa37e73bb7cd6b54397859979a138c46, type: 3}
+  heartImg: {fileID: 21300000, guid: 893991500a7ea4a489c7c27daa37d458, type: 3}
 --- !u!4 &836261331
 Transform:
   m_ObjectHideFlags: 0
@@ -2730,7 +2750,7 @@ RectTransform:
   m_GameObject: {fileID: 1462769130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7967, y: 0.7967, z: 0.7967}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1085796581}
@@ -2738,8 +2758,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -631, y: 48}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -623.7476, y: 59.7}
+  m_SizeDelta: {x: 273.9359, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1462769132
 MonoBehaviour:

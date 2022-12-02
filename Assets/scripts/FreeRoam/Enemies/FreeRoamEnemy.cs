@@ -5,8 +5,11 @@ using UnityEngine;
 
 [System.Serializable]
 public class EnemyStats {
+    public enum EnemyType { rock, vines, crab}
+
     public string enemyName;
-    public Sprite portrait;
+    public EnemyType type;
+    public Color tint = Color.black;        //black is the default value, and if it's full black, tint is ignored
     public int maxHealth;
     public float attackDamage;
     public float attackTime;

@@ -18,7 +18,12 @@ public class BattleManager : MonoBehaviour
     private void Awake() {
         instance = this;
     }
-    
+
+    private void Start()
+    {
+        RestartMusic();
+        Application.targetFrameRate = 60;
+    }
 
     private void toggleScene(string sceneName, bool active) {
         foreach(GameObject gmobj in SceneManager.GetSceneByName(sceneName).GetRootGameObjects())
@@ -33,6 +38,7 @@ public class BattleManager : MonoBehaviour
     private void resetPlayerParty() {
         // reset each party member's position and movement log
         foreach(Transform partyMember in playerParty) {
+
             IsometricPlayerMovement playerMovement = partyMember.GetComponent<IsometricPlayerMovement>();
 
             if(playerMovement)
@@ -81,6 +87,12 @@ public class BattleManager : MonoBehaviour
         toggleAllEnemyMovement(true);
         currentFreeRoamEnemy.setDefeated(true);
         currentFreeRoamEnemy.gameObject.SetActive(false);
+        RestartMusic();
+    }
+
+    void RestartMusic()
+    {
+        AudioManager.instance.PlayMusic(-1);
     }
 
     public void endBattleLose() {
@@ -95,16 +107,22 @@ public class BattleManager : MonoBehaviour
         // unpause free roam, reset player party
         toggleScene(freeRoamSceneName, true);
         resetPlayerParty();
+        foreach (Transform player in playerParty) {
+            if (player.gameObject.TryGetComponent<PartyMemberStats>(out var script)) {
+                script.currentHealth = script.maxHealth;
+            }
+        }
         toggleAllEnemyMovement(true);
+        RestartMusic();
     }
 
     // FOR DEBUGGING
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.P)) {
+        /*if(Input.GetKeyDown(KeyCode.P)) {
             endBattleWin();
         }
         if(Input.GetKeyDown(KeyCode.L)) {
             endBattleLose();
-        }
+        }*/
     }
 }

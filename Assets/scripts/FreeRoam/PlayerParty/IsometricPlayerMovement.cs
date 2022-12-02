@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class IsometricPlayerMovement : MonoBehaviour
@@ -7,6 +8,7 @@ public class IsometricPlayerMovement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private int collisionLayerNumber;
     private Rigidbody2D body;
+    AudioSource source;
     private IsometricAnimator animator;
     private Vector2 originalPos;
     private bool movementEnabled;
@@ -14,6 +16,7 @@ public class IsometricPlayerMovement : MonoBehaviour
     private void Awake() {
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<IsometricAnimator>();
+        source = GetComponent<AudioSource>();
         originalPos = body.position;
         movementEnabled = true;
 
@@ -45,5 +48,19 @@ public class IsometricPlayerMovement : MonoBehaviour
 
     public void resetPosition() {
         body.position = originalPos;
+    }
+
+    private void Update()
+    {
+        float horizInput = Input.GetAxis("Horizontal");
+        float vertInput = Input.GetAxis("Vertical");
+
+        if (Mathf.Abs(horizInput) > 0 || Mathf.Abs(vertInput) > 0) {
+            AudioManager.instance.PlayHere(-2, source);
+        }
+        else {
+            print("stop");
+            AudioManager.instance.StopSoundHere(-2, source);
+        }
     }
 }

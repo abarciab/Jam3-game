@@ -4,16 +4,41 @@ using UnityEngine;
 
 public class IsometricAnimator : MonoBehaviour
 {
-    private string[] stillAnims = {"Still_N", "Still_NW", "Still_W", "Still_SW", 
-                                   "Still_S", "Still_SE", "Still_E", "Still_NE"};
-    private string[] moveAnims = {"Move_N", "Move_NW", "Move_W", "Move_SW",
-                                  "Move_S", "Move_SE", "Move_E", "Move_NE"};
+    public bool round;
+    public bool square;
+
+    public string[] stillAnims = {"Still_N", "Still_W", "Still_W", "Still_W", 
+                                   "Still_S", "Still_E", "Still_E", "Still_E"};
+    public string[] moveAnims = {"Move_N", "Move_W", "Move_W", "Move_W",
+                                  "Move_S", "Move_E", "Move_E", "Move_E"};
 
     private Animator anim;
     private int lastDir;
 
     private void Awake() {
         anim = GetComponent<Animator>();
+        updateShape();
+    }
+
+    public void updateShape()
+    {
+        if (round) {
+            for (int i = 0; i < stillAnims.Length; i++) {
+                stillAnims[i] += "_round";
+            }
+            for (int i = 0; i < moveAnims.Length; i++) {
+                moveAnims[i] += "_round";
+            }
+        }
+        if (square) {
+            for (int i = 0; i < stillAnims.Length; i++) {
+                stillAnims[i] += "_square";
+            }
+            for (int i = 0; i < moveAnims.Length; i++) {
+                moveAnims[i] += "_square";
+            }
+        }
+
     }
 
     private void setLastDir(Vector2 direction) {

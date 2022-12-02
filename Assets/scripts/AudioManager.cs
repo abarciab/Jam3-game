@@ -65,6 +65,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(int soundID, float volume = -1, bool restart = false)      //play given sound from global audiosource
     {
+        //Sound toPlay = getSoundFromID(soundID);
+        //if (music.clip == toPlay.clip && music.isPlaying)
         PlayHere(soundID, music, volume, restart);
     }
 

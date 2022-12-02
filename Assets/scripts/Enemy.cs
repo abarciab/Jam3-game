@@ -8,7 +8,8 @@ public class Enemy : MonoBehaviour
 {
     [Header("stats")]
     public string enemyName;
-    public Sprite portrait;
+    public EnemyStats.EnemyType type;
+    public Color tint;
     public int maxHealth;
     public float health;
     public float attackDamage; 
@@ -32,25 +33,37 @@ public class Enemy : MonoBehaviour
     //basic setup for some UI labels and adding listeners to events
     private void Start() {
         nameLabel.text = enemyName;
-        GetComponent<SpriteRenderer>().sprite = portrait;
+        
+        //GetComponent<SpriteRenderer>().sprite = portrait;
 
         GameManager.instance.AddEnemyToFight(this);
         health = maxHealth;
-        healthBar.value = maxHealth / health;
+        healthBar.value = health / maxHealth;
         //healthBar.text = health + "/" + maxHealth;
         GameManager.onEnemyTurnStart += AddToAttackQueue;
     }
 
     //this is called at the start of the enemy turn, and then enemies in the queue are called sequentially, each attacking only after the previous one has finished
-    void AddToAttackQueue() { 
+    void AddToAttackQueue() {
+        ProcessStatusEffects();
         if (!GameManager.instance.enemyActionQueue.Contains(this)) {
             GameManager.instance.enemyActionQueue.Add(this);
         }
     }
 
+    void ProcessStatusEffects()
+    {
+        foreach (var effect in activeStatusEffects) {
+            if (effect.turnsLeft > 0) {
+                effect.turnsLeft -= 1;
+                Damage(effect.damagePerTurn);
+            }
+        }
+    }
+
     public void setStats(EnemyStats stats) {
         enemyName = stats.enemyName;
-        portrait = stats.portrait;
+        //portrait = stats.portrait;
         maxHealth = stats.maxHealth;
         attackDamage = stats.attackDamage;
         attackTime = stats.attackTime;
@@ -58,6 +71,25 @@ public class Enemy : MonoBehaviour
         isSpeaker = stats.isSpeaker;
         dialogueLines = stats.dialogueLines;
         currentLine = 0;
+        type = stats.type;
+
+        var animator = GetComponent<Animator>();
+        animator.SetBool("rock", false);
+        animator.SetBool("vine", false);
+        animator.SetBool("crab", false);
+        switch (type) {
+            case EnemyStats.EnemyType.rock:
+                animator.SetBool("rock", true);
+                break;
+            case EnemyStats.EnemyType.vines:
+                animator.SetBool("vine", true);
+                break;
+            case EnemyStats.EnemyType.crab:
+                animator.SetBool("crab", true);
+                break;
+            default:
+                break;
+        }
     }
 
     public void sayLine() {
@@ -75,6 +107,7 @@ public class Enemy : MonoBehaviour
     //artificial waiting period so that attacks aren't instant. A more refined version of this would probably use attack animations with animation events to trigger Attack() instead
     IEnumerator ReadyAttack()
     {
+        GetComponent<Animator>().SetTrigger("attack");
         if(isSpeaker) {
             yield return new WaitForSeconds(attackTime);
             GameManager.instance.clearLog();
@@ -85,7 +118,7 @@ public class Enemy : MonoBehaviour
         if(isSpeaker)
             GameManager.instance.clearLog();
         else if(!GameManager.instance.textHidden && !GameManager.instance.checkForSpeakers()) {
-            print("yo");
+            //print("yo");
             GameManager.instance.textHidden = true;
             GameManager.instance.clearLog();
         }
@@ -121,6 +154,7 @@ public class Enemy : MonoBehaviour
 
     //Handles how abilities are going to be used based on ability selected.
     void useAbility(Ability selectedAbility){
+
         var selectedEnemyTargets = new List<Character>();
         var selectedAllyTargets = new List<Enemy>();
 
@@ -133,7 +167,7 @@ public class Enemy : MonoBehaviour
                 selectedAllyTargets.Add(possibleAllyTargets[selectedIndex]);
                 possibleAllyTargets.RemoveAt(selectedIndex);
             }
-            else {
+            else if (possibleEnemyTargets.Count > 0){
                 int selectedIndex = Random.Range(0, possibleEnemyTargets.Count);
                 selectedEnemyTargets.Add(possibleEnemyTargets[selectedIndex]);
                 possibleEnemyTargets.RemoveAt(selectedIndex);
@@ -145,11 +179,11 @@ public class Enemy : MonoBehaviour
             float abilityDamage = selectedAbility.damage;
             if (selectedAbility.targetAllies) {
                 selectedAllyTargets[i].Damage(abilityDamage, selectedAbility.turnDuration, selectedAbility.damagePerTurn);
-                GameManager.instance.Log(enemyName + " uses " + selectedAbility.abilityName + (abilityDamage > 0 ? " to attack " : "to heal ") + selectedAllyTargets[i].enemyName +  " for " + Mathf.Abs(Mathf.Round(abilityDamage * 10) / 10) + " dmg");    //this is what shows up in the little on-screen log
+                GameManager.instance.Log(enemyName + " uses " + selectedAbility.abilityName + (abilityDamage >= 0 ? " to attack " : "to heal ") + selectedAllyTargets[i].enemyName +  " for " + Mathf.Abs(Mathf.Round(abilityDamage * 10) / 10) + " dmg");    //this is what shows up in the little on-screen log
             }
             else {
                 selectedEnemyTargets[i].Damage(abilityDamage, selectedAbility.turnDuration, selectedAbility.damagePerTurn);
-                GameManager.instance.Log(enemyName + " uses " + selectedAbility.abilityName + (abilityDamage > 0 ? " to attack " : "to heal ") + selectedEnemyTargets[i].characterName +  " for " + Mathf.Abs(Mathf.Round(abilityDamage * 10) / 10) + " dmg");        //so is this
+                GameManager.instance.Log(enemyName + " uses " + selectedAbility.abilityName + (abilityDamage >= 0 ? " to attack " : "to heal ") + selectedEnemyTargets[i].characterName +  " for " + Mathf.Abs(Mathf.Round(abilityDamage * 10) / 10) + " dmg");        //so is this
             }
         }
         AudioManager.instance.PlayGlobal(selectedAbility.soundID, _priority: 1);
@@ -158,14 +192,20 @@ public class Enemy : MonoBehaviour
 
     //this function is called when someone damages (or heals) this character. almost identical to the Damage() function in Character.cs
     public void Damage(float damageAmount, int duration = 1, float damagePerTurn = 1) {
+        if (duration > 1) {
+            var newEffect = new StatusEffect();
+            newEffect.damagePerTurn = damagePerTurn;
+            newEffect.turnsLeft = duration - 1;
+            activeStatusEffects.Add(newEffect);
+        }
+
         //actually change health value
         health = Mathf.Max(0, health - damageAmount);
         health = Mathf.Min(health, maxHealth);
         health = health - damageAmount;
 
         //display it, rounding to 1 decimal point and activating the damageIndicator
-        //healthBar.text = (Mathf.Round(health * 10) / 10) + "/" + maxHealth;
-        healthBar.value = maxHealth / health;
+        healthBar.value = health / maxHealth;
         damageIndicator.text = Mathf.Abs(Mathf.Round(damageAmount * 10) / 10).ToString();
         damageIndicator.color = damageAmount < 0 ? Color.green : Color.white;
         damageIndicator.gameObject.SetActive(false);    //the animation of the indicator start when the gameobject is turned on, so we turn it off to reset it
