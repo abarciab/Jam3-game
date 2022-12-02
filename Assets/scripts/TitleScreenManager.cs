@@ -13,8 +13,8 @@ public class TitleScreenManager : MonoBehaviour
         StartCoroutine("fadeToGame");
     }
 
-    public void toggleCredits(bool active) {
-        creditsScreen.gameObject.SetActive(active);
+    public void gotoCredits() {
+        SceneManager.LoadScene(4);
     }
 
     private IEnumerator fadeToGame() {

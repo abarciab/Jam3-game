@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
+using System.Data.Common;
+using System.Xml.Serialization;
 
 public class HealthBars : MonoBehaviour
 {
@@ -13,6 +16,7 @@ public class HealthBars : MonoBehaviour
     }
 
     public Gradient HPGradient;
+    public int score;
 
     [Header("References")]
     public Slider triSlider;
@@ -25,6 +29,7 @@ public class HealthBars : MonoBehaviour
     public Sprite ColorSquare;
     public Slider squareSlider;
     public Image squareFill;
+    public TextMeshProUGUI scoreText;
 
     public PartyMemberStats triStats;
     public PartyMemberStats roundStats;
@@ -45,6 +50,12 @@ public class HealthBars : MonoBehaviour
             squareSlider.value = SquareStats.currentHealth / SquareStats.maxHealth;
             squareFill.color = HPGradient.Evaluate(squareSlider.value);
         }   
+    }
+
+    public void IncreaseScore (int _score)
+    {
+        score += _score;
+        scoreText.text = "Score: " + score;
     }
 
     public void ActiveRound()

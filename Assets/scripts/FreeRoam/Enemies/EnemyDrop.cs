@@ -7,7 +7,7 @@ public class EnemyDrop : MonoBehaviour
 {
     public string dropName;
     public Transform uiImage;
-
+    /*
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag == "Player") {
             print("destroyed");
@@ -15,5 +15,5 @@ public class EnemyDrop : MonoBehaviour
             uiImage.GetComponent<Image>().color = Color.white;
             Destroy(transform.gameObject);
         }
-    }
+    }*/
 }

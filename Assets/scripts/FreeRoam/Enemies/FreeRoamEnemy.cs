@@ -7,7 +7,8 @@ using UnityEngine;
 public class EnemyStats {
     public enum EnemyType { rock, vines, crab}
 
-    public string enemyName;
+    public string name;
+    public int pointValue;
     public EnemyType type;
     public Color tint = Color.black;        //black is the default value, and if it's full black, tint is ignored
     public int maxHealth;
@@ -18,6 +19,8 @@ public class EnemyStats {
     [Tooltip("NOTE: First line is intro line said at beginning of battle." +
              "Last line is a generic line that is repeated when all other lines are said.")]
     public List<string> dialogueLines;
+    public bool revealVines;
+    public bool revealHook;
 }
 public class FreeRoamEnemy : MonoBehaviour
 {
@@ -27,7 +30,7 @@ public class FreeRoamEnemy : MonoBehaviour
     [Tooltip("Place the drop prefab here")]
     [SerializeField] private GameObject drop;
     [Tooltip("Name of the drop stored in the inventory")]
-    [SerializeField] private string dropName;
+    public string dropName;
     [Tooltip("Place the sprite of the drop here. Make sure it matches with the Image used in the UI")]
     [SerializeField] private Sprite dropSprite;
     [Tooltip("This is a reference to the Image in the UI")]
@@ -74,7 +77,7 @@ public class FreeRoamEnemy : MonoBehaviour
 
     public EnemyStats findEnemyByName(string name) {
         foreach(EnemyStats enemy in enemiesInEncounter) {
-            if(enemy.enemyName.ToLower() == name.ToLower())
+            if(enemy.name.ToLower() == name.ToLower())
                 return enemy;
         }
         return null;

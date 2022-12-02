@@ -116,12 +116,14 @@ public class Character : MonoBehaviour
         int numTargets = ability.targetAllies ? selectedAllyTargets.Count : selectedEnemyTargets.Count;
         for (int i = 0; i < numTargets; i++) {                      //then we actually damage/heal the targets
             float abilityDamage = ability.damage * (GameManager.instance.comboScript.GetComboValue());
+            float abilityDamagePerTurn = ability.damagePerTurn * (GameManager.instance.comboScript.GetComboValue());
+            abilityDamagePerTurn = Mathf.Round(abilityDamagePerTurn * 10) / 10;
             if (ability.targetAllies) {
-                selectedAllyTargets[i].Damage(abilityDamage, ability.turnDuration, ability.damagePerTurn);
+                selectedAllyTargets[i].Damage(abilityDamage, ability.turnDuration, abilityDamagePerTurn);
                 GameManager.instance.Log(characterName + (abilityDamage > 0 ? " attacks " : "heals ") + selectedAllyTargets[i].characterName + " for " + Mathf.Abs(Mathf.Round(abilityDamage * 10) / 10) + " dmg");    //this is what shows up in the little on-screen log
             }
             else {
-                selectedEnemyTargets[i].Damage(abilityDamage, ability.turnDuration, ability.damagePerTurn);
+                selectedEnemyTargets[i].Damage(abilityDamage, ability.turnDuration, abilityDamagePerTurn);
                 GameManager.instance.Log(characterName + (abilityDamage > 0 ? " attacks " : "heals ") + selectedEnemyTargets[i].enemyName + " for " + Mathf.Abs(Mathf.Round(abilityDamage * 10) / 10) + " dmg");        //so is this
             }
         }

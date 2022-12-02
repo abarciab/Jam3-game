@@ -7,6 +7,7 @@ using TMPro;
 public class Enemy : MonoBehaviour
 {
     [Header("stats")]
+    public int pointValue;
     public string enemyName;
     public EnemyStats.EnemyType type;
     public Color tint;
@@ -19,12 +20,16 @@ public class Enemy : MonoBehaviour
     [Tooltip("NOTE: First line is intro line said at beginning of battle")]
     public List<string> dialogueLines;
     private int currentLine;
+    bool revealHook;
+    bool revealVines;
 
     [Header("references")]
     public TextMeshProUGUI nameLabel;
     public Slider healthBar;
     public TextMeshProUGUI damageIndicator;
     private AudioSource source;
+    public TextMeshProUGUI effectAmount;
+    public Image effectImage;
 
     [Header("misc")]
     public int deathSoundID = 5;
@@ -48,7 +53,7 @@ public class Enemy : MonoBehaviour
     //this is called at the start of the enemy turn, and then enemies in the queue are called sequentially, each attacking only after the previous one has finished
     void AddToAttackQueue() {
         ProcessStatusEffects();
-        if (!GameManager.instance.enemyActionQueue.Contains(this)) {
+        if (!GameManager.instance.enemyActionQueue.Contains(this) && health > 0) {
             GameManager.instance.enemyActionQueue.Add(this);
         }
     }
@@ -62,14 +67,28 @@ public class Enemy : MonoBehaviour
                 totalDamage += effect.damagePerTurn;
             }
         }
+        effectImage.gameObject.SetActive(false);
+        if (totalDamage > 0) {
+            AudioManager.instance.PlayHere(10, source);
+            effectImage.sprite = GameManager.instance.fireImg;
+            effectAmount.color = GameManager.instance.fireColor;
+            
+        }
+        if (totalDamage < 0) {
+            effectImage.sprite = GameManager.instance.heartImg;
+            effectAmount.color = GameManager.instance.healColor;
+        }
+
         if (Mathf.Abs(totalDamage) > 0) {
+            effectImage.gameObject.SetActive(true);
+            effectAmount.text = totalDamage.ToString();
             Damage(totalDamage);
         }
     }
 
     public void setStats(EnemyStats stats) {
-        enemyName = stats.enemyName;
-        //portrait = stats.portrait;
+        pointValue = stats.pointValue;
+        enemyName = stats.name;
         maxHealth = stats.maxHealth;
         attackDamage = stats.attackDamage;
         attackTime = stats.attackTime;
@@ -78,6 +97,8 @@ public class Enemy : MonoBehaviour
         dialogueLines = stats.dialogueLines;
         currentLine = 0;
         type = stats.type;
+        revealHook = stats.revealHook;
+        revealVines = stats.revealVines;
 
         var animator = GetComponent<Animator>();
         animator.SetBool("rock", false);
@@ -217,11 +238,13 @@ public class Enemy : MonoBehaviour
 
         //display it, rounding to 1 decimal point and activating the damageIndicator
         healthBar.value = health / maxHealth;
-        damageIndicator.text = Mathf.Abs(Mathf.Round(damageAmount * 10) / 10).ToString();
-        damageIndicator.color = damageAmount < 0 ? Color.green : Color.white;
-        damageIndicator.gameObject.SetActive(false);    //the animation of the indicator start when the gameobject is turned on, so we turn it off to reset it
-        damageIndicator.gameObject.SetActive(true);
-
+        if (damageAmount != 0) {
+            damageIndicator.text = Mathf.Abs(Mathf.Round(damageAmount * 10) / 10).ToString();
+            damageIndicator.color = damageAmount < 0 ? Color.green : Color.white;
+            damageIndicator.gameObject.SetActive(false);    //the animation of the indicator start when the gameobject is turned on, so we turn it off to reset it
+            damageIndicator.gameObject.SetActive(true);
+        }
+       
         if (health <= 0) {
             Die();
         }
@@ -229,7 +252,15 @@ public class Enemy : MonoBehaviour
 
     //called when health drops below 0
     void Die() {
+
+        if (!GameManager.instance.playerTurn) {
+            print("ending attack");
+            GameManager.instance.CompleteAttack(this);
+        }
+        GameManager.instance.revealVines = revealVines;
+        GameManager.instance.revealHook = revealHook;
         print(enemyName + " died!!!");
+        GameManager.instance.totalScoreForThisFight += pointValue;
         GameManager.instance.enemiesInFight.Remove(this);
         GameManager.onEnemyTurnStart -= AddToAttackQueue;
         if(GameManager.instance.enemiesInFight.Count > 0)

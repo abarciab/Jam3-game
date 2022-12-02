@@ -15,6 +15,7 @@ public class BattleManager : MonoBehaviour
     public List<EnemyStats> currentEnemies { get; private set; }
     public FreeRoamEnemy currentFreeRoamEnemy { get; private set; }
     public List<Enemy> enemyChoice = new List<Enemy>();
+    public GameObject winScreen;
 
     private void Awake() {
         instance = this;
@@ -34,6 +35,12 @@ public class BattleManager : MonoBehaviour
                 if(gmobj.tag == "PlayerParty")
                     gmobj.GetComponentInChildren<IsometricPlayerMovement>().toggleMovement(active);
             }
+    }
+
+    string dropFromCurrentFight;
+    public void AddDropsToFightOutcome(string dropName)
+    {
+        dropFromCurrentFight = dropName;
     }
 
     private void resetPlayerParty() {
@@ -64,6 +71,7 @@ public class BattleManager : MonoBehaviour
     }
 
     public void startBattleScene(FreeRoamEnemy enemy) {
+        dropFromCurrentFight = enemy.dropName;
         // load enemies
         currentFreeRoamEnemy = enemy;
         currentEnemies = enemy.enemiesInEncounter;
@@ -74,8 +82,12 @@ public class BattleManager : MonoBehaviour
             SceneManager.LoadScene(battleSceneName, LoadSceneMode.Additive); 
     }
 
-    public void endBattleWin() {
-        
+    public void endBattleWin(bool vines, bool hook) {
+        if (!string.IsNullOrEmpty(dropFromCurrentFight)){Inventory.instance.addItem(dropFromCurrentFight);}
+
+        if (vines) { Inventory.instance.activate(true); }
+        if (hook) { Inventory.instance.activate(false); }
+
         loadPartyStats();
 
         // unload battle scene
@@ -117,6 +129,16 @@ public class BattleManager : MonoBehaviour
         }
         toggleAllEnemyMovement(true);
         RestartMusic();
+    }
+
+    public void winGame()
+    {
+        winScreen.SetActive(true);
+    }
+
+    public void GoToCredits()
+    {
+        SceneManager.LoadScene(4);
     }
 
     // FOR DEBUGGING

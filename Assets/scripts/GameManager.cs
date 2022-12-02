@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using UnityEngine.SceneManagement;
+using JetBrains.Annotations;
 
 //this class is a flexible way to create diffent kinds of abilities in the game.
 [System.Serializable]
@@ -79,6 +80,7 @@ public class GameManager : MonoBehaviour
 
 
     [Header("misc")]
+    public int totalScoreForThisFight;
     public float endWaitTime;
     public int turnsPassed;
     public int targetEnemy;
@@ -93,6 +95,8 @@ public class GameManager : MonoBehaviour
     public Color healColor;
     public Sprite fireImg;
     public Sprite heartImg;
+    public bool revealHook;
+    public bool revealVines;
 
     //see InputReactSound for more details about these two
     bool playSuccessSound;
@@ -106,6 +110,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start(){
+        totalScoreForThisFight = 0;
         AudioManager.instance.PlayMusic(8);
         battleOver = false;
         clearLog();
@@ -157,6 +162,7 @@ public class GameManager : MonoBehaviour
         if (enemiesInFight.Count == 0 && turnsPassed > 0 && !battleOver) {
             battleOver = true;
             clearLog();
+            HealthBars.instance.IncreaseScore(totalScoreForThisFight);
             Log("<color=green>You Win!</color>");
             AudioManager.instance.PlayGlobal(15);
             StartCoroutine(endFight(true));
@@ -190,7 +196,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(endWaitTime);
 
         if (win) {
-            BattleManager.instance.endBattleWin();
+            BattleManager.instance.endBattleWin(revealVines, revealHook);
         }
         else if (!loseScreen.activeInHierarchy) {
             print("lose");
@@ -237,8 +243,10 @@ public class GameManager : MonoBehaviour
     //called from enemy.cs. this goes through all enemies sequentially and calls 'startAttack' on them
     public void CompleteAttack(Enemy _enemy) {
         enemyActionQueue.Remove(_enemy);
+        print("removing " + _enemy.name + " from queue. remaining: " + enemyActionQueue.Count);
         
-        if (enemyActionQueue.Count > 0) {
+        
+        if (enemyActionQueue.Count > 0 && enemyActionQueue[0] != null) {
             enemyActionQueue[0].StartAttack();
         }
         else {
@@ -255,9 +263,16 @@ public class GameManager : MonoBehaviour
         speechBubble.SetActive(false);
         onEnemyTurnStart?.Invoke();
 
-        if (enemyActionQueue.Count > 0) {
-            enemyActionQueue[0].StartAttack();
+        for (int i = 0; i < enemyActionQueue.Count; i++) {
+            if (enemyActionQueue[0] != null && enemyActionQueue[0].health > 0) {
+                enemyActionQueue[i].StartAttack();
+                return;
+            }
         }
+        StartPlayerTurn();
+        /*if (enemyActionQueue.Count > 0) {
+            enemyActionQueue[0].StartAttack();
+        }*/
     }
 
     //this function makes sure that the right sound is played when a key is pressed. it should play a good sound when the right key is pressed, and only play a bad sound if there are no patterns that the key matches
