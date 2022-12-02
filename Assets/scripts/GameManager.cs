@@ -54,6 +54,12 @@ public class GameManager : MonoBehaviour
     public float enemyYSpacing;
     public float dialogueTime;
 
+    [Header("Player Party Creation")]
+    public Transform characterContainer;
+    public GameObject characterPrefab;
+    public Vector3 partyInitialPos;
+    public float partyXSpacing;
+
     [Header("combatants")]
     public List<Character> charactersInFight = new List<Character>();
     public List<Enemy> enemiesInFight = new List<Enemy>();
@@ -116,14 +122,24 @@ public class GameManager : MonoBehaviour
             // move position to space enemies
             position = new Vector3(position.x + enemyXSpacing, position.y + enemyYSpacing, position.z);
         }
+
+        Transform playerParty = BattleManager.instance.playerParty;
+        position = partyInitialPos;
+        foreach(Transform partyMember in playerParty) {
+            // get stats and make a new character
+            PartyMemberStats stats = partyMember.GetComponent<PartyMemberStats>();
+            GameObject newCharacter = Instantiate(characterPrefab, position, transform.rotation, characterContainer);
+
+            // add character to battle and move position to space characters
+            newCharacter.GetComponent<Character>().addToBattle(stats);
+            position = new Vector3(position.x + partyXSpacing, position.y, position.z);
+        }
     }
 
     private void Update()
     {
         //first, check win/loss. this would be better to check only when a player or enemy dies
         if (charactersInFight.Count == 0 && turnsPassed > 0 && !battleOver) {
-            //if (!loseScreen.activeInHierarchy)
-            //    loseScreen.SetActive(true);
             battleOver = true;
             clearLog();
             Log("<color=red>You Lose!</color>");
@@ -131,8 +147,6 @@ public class GameManager : MonoBehaviour
             return;
         }
         if (enemiesInFight.Count == 0 && turnsPassed > 0 && !battleOver) {
-            //if (!winScreen.activeInHierarchy)
-            //    winScreen.SetActive(true);
             battleOver = true;
             clearLog();
             Log("<color=green>You Win!</color>");
@@ -272,7 +286,7 @@ public class GameManager : MonoBehaviour
         onUpdateInput = null;
         onEnemyTurnStart = null;
         onPlayerTurnStart = null;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void resetOnLose() {

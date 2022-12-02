@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovementLog : MonoBehaviour
 {
-    [SerializeField] private int logLength;
+    public int logLength;
     private Rigidbody2D body;
     public List<Vector2> log { get; private set; }
 

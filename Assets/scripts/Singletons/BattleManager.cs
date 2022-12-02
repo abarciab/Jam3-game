@@ -10,7 +10,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private string battleSceneName;
     [SerializeField] private string freeRoamSceneName;
     [SerializeField] private Transform enemyContainer;
-    [SerializeField] private Transform playerParty;
+    public Transform playerParty;
     public List<EnemyStats> currentEnemies { get; private set; }
     public FreeRoamEnemy currentFreeRoamEnemy { get; private set; }
     public List<Enemy> enemyChoice = new List<Enemy>();
@@ -31,8 +31,10 @@ public class BattleManager : MonoBehaviour
     }
 
     private void resetPlayerParty() {
+        // reset each party member's position and movement log
         foreach(Transform partyMember in playerParty) {
             IsometricPlayerMovement playerMovement = partyMember.GetComponent<IsometricPlayerMovement>();
+
             if(playerMovement)
                 playerMovement.resetPosition();
             else
@@ -48,6 +50,12 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    private void loadPartyStats() {
+        foreach(Transform character in GameManager.instance.characterContainer) {
+            character.GetComponent<Character>().transferStats();
+        }
+    }
+
     public void startBattleScene(FreeRoamEnemy enemy) {
         // load enemies
         currentFreeRoamEnemy = enemy;
@@ -60,9 +68,13 @@ public class BattleManager : MonoBehaviour
     }
 
     public void endBattleWin() {
+        loadPartyStats();
+
         // unload battle scene
-        if(SceneManager.GetSceneByName(battleSceneName).isLoaded)
+        if(SceneManager.GetSceneByName(battleSceneName).isLoaded) {
+            GameManager.instance.ResetScene();
             SceneManager.UnloadSceneAsync(battleSceneName);
+        }
 
         // unpause free roam and disable enemy
         toggleScene(freeRoamSceneName, true);
@@ -72,11 +84,15 @@ public class BattleManager : MonoBehaviour
     }
 
     public void endBattleLose() {
-        // unload battle scene
-        if(SceneManager.GetSceneByName(battleSceneName).isLoaded)
-            SceneManager.UnloadSceneAsync(battleSceneName);
+        loadPartyStats();
 
-        // unpause free roam and disable enemy
+        // unload battle scene
+        if(SceneManager.GetSceneByName(battleSceneName).isLoaded) {
+            GameManager.instance.ResetScene();
+            SceneManager.UnloadSceneAsync(battleSceneName);
+        }
+
+        // unpause free roam, reset player party
         toggleScene(freeRoamSceneName, true);
         resetPlayerParty();
         toggleAllEnemyMovement(true);
@@ -86,6 +102,9 @@ public class BattleManager : MonoBehaviour
     private void Update() {
         if(Input.GetKeyDown(KeyCode.P)) {
             endBattleWin();
+        }
+        if(Input.GetKeyDown(KeyCode.L)) {
+            endBattleLose();
         }
     }
 }

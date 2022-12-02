@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class FollowCharacter : MonoBehaviour
 {
-    [SerializeField] private Transform characterToFollow;
-    [SerializeField] private float speed;
-    [SerializeField] private float minDistanceToCharacter;
+    public Transform characterToFollow;
+    public float speed;
+    public float minDistanceToCharacter;
+    public Vector2 originalPos;
 
     private MovementLog characterMovementLog;
     private IsometricAnimator anim;
     private Rigidbody2D body;
     private Vector2 movement;
-    private Vector2 originalPos;
 
     private void Awake() {
         body = GetComponent<Rigidbody2D>();

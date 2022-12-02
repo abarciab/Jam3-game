@@ -11,6 +11,7 @@ public class Character : MonoBehaviour
     public int maxHealth;
     public float health;        //health is set to maxHealth at the start of play
     public string pattern;
+    //TODO: Add portrait
 
     [Header("Ability")]
     public Ability ability;
@@ -24,13 +25,16 @@ public class Character : MonoBehaviour
     public TextMeshProUGUI abilityDesciprtionLabel;
 
     [Header("Misc")]
-   public List<StatusEffect> ActiveStatusEffects = new List<StatusEffect>(); //hasn't been implemented yet, but these should be created when duration > 1 in damage function, and triggered onPlayerTurnStart
+    public List<StatusEffect> ActiveStatusEffects = new List<StatusEffect>(); //hasn't been implemented yet, but these should be created when duration > 1 in damage function, and triggered onPlayerTurnStart
 
     //private variables
     int currentPatternPos = -1;
 
+    /*
     //basic setup for some UI labels and adding listeners to events
     private void Start() {
+        // get stats from battle manager. if health <= 0, destroy this gameobject
+
         health = maxHealth;
         nameLabel.text = characterName;
         pattern = pattern.ToUpper();
@@ -43,6 +47,7 @@ public class Character : MonoBehaviour
         GameManager.onEnemyTurnStart += ResetCharacter;
         GameManager.instance.charactersInFight.Add(this);
     }
+    */
 
     
     //this is called every time a letter is typed, and if typed letter is the next one in this chararcter's pattern, update the graphic. otherwise, reset progress on the pattern
@@ -152,6 +157,26 @@ public class Character : MonoBehaviour
         patternLabel.text += " ]";
     }
 
+    //basic setup for some UI labels and adding listeners to events
+    public void addToBattle(PartyMemberStats stats) {
+        if(stats.currentHealth <= 0)
+            stats.currentHealth = 10;
+
+        maxHealth = stats.maxHealth;
+        health = stats.currentHealth;
+        characterName = stats.characterName;
+        nameLabel.text = stats.characterName;
+        pattern = stats.pattern.ToUpper();
+        UpdatePatternLabel();
+
+        abilityDesciprtionLabel.text = stats.ability.description;
+        healthLabel.text = health + "/" + maxHealth;
+        healthSlider.value = maxHealth/health;
+        GameManager.onUpdateInput += CheckPattern;
+        GameManager.onEnemyTurnStart += ResetCharacter;
+        GameManager.instance.charactersInFight.Add(this);
+    }
+
     //this function is called when someone damages (or heals) this character. almost identical to the Damage() function in Enemy.cs
     public void Damage(float damageAmount, int duration = 1, float damagePerTurn = 1)
     {
@@ -172,9 +197,20 @@ public class Character : MonoBehaviour
     void Die()
     {
         print(characterName + " died!!!");
+        transferStats();
         GameManager.onUpdateInput -= CheckPattern;
         GameManager.onEnemyTurnStart -= ResetCharacter;
         GameManager.instance.charactersInFight.Remove(this);
         Destroy(gameObject);
+    }
+
+    public void transferStats() {
+        foreach(Transform partyMember in BattleManager.instance.playerParty) {
+            PartyMemberStats stats = partyMember.GetComponent<PartyMemberStats>();
+            if(stats.characterName == characterName) {
+                stats.setCurrentHealth(health);
+                return;
+            }
+        }
     }
 }

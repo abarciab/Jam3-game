@@ -393,11 +393,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7512317377120047311, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7512317377120047311, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8117070085514062429, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: m_text
@@ -421,7 +421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8117070087247586552, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8117070087247586554, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: pattern
@@ -1855,6 +1855,10 @@ MonoBehaviour:
   enemyXSpacing: 2
   enemyYSpacing: -1
   dialogueTime: 1.5
+  characterContainer: {fileID: 1609828768}
+  characterPrefab: {fileID: 8117070087247586552, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
+  partyInitialPos: {x: -6.44, y: -0.85, z: 0}
+  partyXSpacing: 5.2
   charactersInFight: []
   enemiesInFight: []
   enemyActionQueue: []
@@ -2034,11 +2038,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7512317377120047311, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7512317377120047311, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8117070085514062429, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: m_text
@@ -2054,7 +2058,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8117070087247586552, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8117070087247586554, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: pattern
@@ -3685,11 +3689,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7512317377120047311, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7512317377120047311, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8117070085514062429, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: m_text
@@ -3698,6 +3702,10 @@ PrefabInstance:
     - target: {fileID: 8117070087247586552, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: m_Name
       value: round robot
+      objectReference: {fileID: 0}
+    - target: {fileID: 8117070087247586552, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8117070087247586555, guid: 12473ab14b4b4a34ba8e2cc648e06d03, type: 3}
       propertyPath: m_RootOrder
