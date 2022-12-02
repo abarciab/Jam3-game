@@ -37,7 +37,7 @@ public class ComboGagueCoordinator : MonoBehaviour
             comboPercent -= Time.deltaTime * timeMod;
             comboPercent = Mathf.Max(comboPercent, 0);
         }
-        multiplierDisplay.text = (Mathf.Round((GetComboValue()) * 10) / 10) + "%\nCOMBO";      //for display purposes, the value is rounded to 1 decimal point
+        multiplierDisplay.text = (Mathf.Round((GetComboValue()) * 10) / 10) + "x\nCOMBO";      //for display purposes, the value is rounded to 1 decimal point
         meterTransform.sizeDelta = new Vector2(width, originalHeight * comboPercent);       //this updates the actual meter
     }
 

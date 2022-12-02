@@ -59,7 +59,6 @@ public class IsometricPlayerMovement : MonoBehaviour
             AudioManager.instance.PlayHere(-2, source);
         }
         else {
-            print("stop");
             AudioManager.instance.StopSoundHere(-2, source);
         }
     }

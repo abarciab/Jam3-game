@@ -861,7 +861,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.4356, y: 2.4356, z: 2.4356}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8117070087247586555}
   m_RootOrder: 0
@@ -1575,4 +1575,5 @@ MonoBehaviour:
   abilityDesciprtionLabel: {fileID: 7838637254610783628}
   effectImage: {fileID: 3913728768842928741}
   effectAmount: {fileID: 7427043571298348234}
+  spriteAnimator: {fileID: 3796757492357252316}
   activeStatusEffects: []

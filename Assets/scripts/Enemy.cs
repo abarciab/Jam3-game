@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour
     public TextMeshProUGUI nameLabel;
     public Slider healthBar;
     public TextMeshProUGUI damageIndicator;
+    private AudioSource source;
 
     [Header("misc")]
     public int deathSoundID = 5;
@@ -32,6 +33,7 @@ public class Enemy : MonoBehaviour
 
     //basic setup for some UI labels and adding listeners to events
     private void Start() {
+        source = gameObject.AddComponent<AudioSource>();
         nameLabel.text = enemyName;
         
         //GetComponent<SpriteRenderer>().sprite = portrait;
@@ -93,10 +95,10 @@ public class Enemy : MonoBehaviour
     }
 
     public void sayLine() {
-        GameManager.instance.Log("<color=red>" + enemyName + ": </color>" + dialogueLines[currentLine]);
-
-        if(currentLine < dialogueLines.Count - 1)
+        if (currentLine <= dialogueLines.Count - 1) {
+            GameManager.instance.DiaLog(dialogueLines[currentLine]);
             currentLine++;
+        }
     }
 
     //simple handler for the coroutine so that other scripts can call this instead of 'startCoroutine("ReadyAttack")'
@@ -109,19 +111,20 @@ public class Enemy : MonoBehaviour
     {
         GetComponent<Animator>().SetTrigger("attack");
         if(isSpeaker) {
-            yield return new WaitForSeconds(attackTime);
-            GameManager.instance.clearLog();
+            //yield return new WaitForSeconds(attackTime);
+            //GameManager.instance.clearLog();
             sayLine();
         }
-        yield return new WaitForSeconds(isSpeaker ? GameManager.instance.dialogueTime : attackTime);
+        //yield return new WaitForSeconds(isSpeaker ? GameManager.instance.dialogueTime : attackTime);
+        yield return new WaitForSeconds(attackTime);
 
-        if(isSpeaker)
-            GameManager.instance.clearLog();
-        else if(!GameManager.instance.textHidden && !GameManager.instance.checkForSpeakers()) {
+        /*if(isSpeaker)
+            //GameManager.instance.clearLog();
+        if(!GameManager.instance.textHidden && !GameManager.instance.checkForSpeakers()) {
             //print("yo");
             GameManager.instance.textHidden = true;
             GameManager.instance.clearLog();
-        }
+        }*/
         EnemyAction();
     }
 
@@ -186,7 +189,10 @@ public class Enemy : MonoBehaviour
                 GameManager.instance.Log(enemyName + " uses " + selectedAbility.abilityName + (abilityDamage >= 0 ? " to attack " : "to heal ") + selectedEnemyTargets[i].characterName +  " for " + Mathf.Abs(Mathf.Round(abilityDamage * 10) / 10) + " dmg");        //so is this
             }
         }
-        AudioManager.instance.PlayGlobal(selectedAbility.soundID, _priority: 1);
+        int soundID = 11;
+        if (type == EnemyStats.EnemyType.rock) { soundID = 13; }
+        if (type == EnemyStats.EnemyType.vines) { soundID = 12; }
+        AudioManager.instance.PlayHere(soundID, source);
         GameManager.instance.CompleteAttack(this);
     }
 

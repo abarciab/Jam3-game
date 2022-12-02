@@ -76,6 +76,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
         currentPriority = priority;
+        
 
         Sound toPlay = getSoundFromID(soundID);
 

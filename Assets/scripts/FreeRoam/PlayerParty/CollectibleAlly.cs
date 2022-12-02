@@ -69,6 +69,8 @@ public class CollectibleAlly : MonoBehaviour
         stats.pattern = pattern;
         stats.portrait = portrait;
         stats.ability = ability;
+        stats.round = round;
+        stats.square = !round;
     }
 
     private IEnumerator waitForMamaDuck(GameObject newAlly) {

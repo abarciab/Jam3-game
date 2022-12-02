@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     public TextMeshProUGUI turnLabel;
     public TextMeshProUGUI LogText;
+    public GameObject speechBubble;
+    public TextMeshProUGUI dialogueText;
     [HideInInspector]
     public ComboGagueCoordinator comboScript;   //this script assigns itself, so I hid it in the inspector
     public GameObject targetIcon;
@@ -186,10 +188,16 @@ public class GameManager : MonoBehaviour
     private IEnumerator endFight(bool win) {
         yield return new WaitForSeconds(endWaitTime);
 
-        if(win)
+        if (win) {
+            print("win");
+            AudioManager.instance.PlayGlobal(15);
             BattleManager.instance.endBattleWin();
-        else if (!loseScreen.activeInHierarchy)
+        }
+        else if (!loseScreen.activeInHierarchy) {
+            print("lose");
+            AudioManager.instance.PlayGlobal(14, _priority: 2);
             loseScreen.SetActive(true);
+        }
 
     }
 
@@ -247,7 +255,7 @@ public class GameManager : MonoBehaviour
         currentPattern = "";
         playerTurn = false;
         turnLabel.text = "Enemy turn";
-        
+        speechBubble.SetActive(false);
         onEnemyTurnStart?.Invoke();
 
         if (enemyActionQueue.Count > 0) {
@@ -280,6 +288,12 @@ public class GameManager : MonoBehaviour
     //mostly here for testing, this function logs strings to the in-game display
     public void Log(string newLine) {
         LogText.text += "\n" + newLine;
+    }
+
+    public void DiaLog(string line)
+    {
+        speechBubble.SetActive(true);
+        dialogueText.text = line;
     }
 
     public void clearLog() {

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEditor.SceneManagement;
+using Unity.VisualScripting;
 
 public class Character : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Character : MonoBehaviour
     public int maxHealth;
     public float health;        //health is set to maxHealth at the start of play
     public string pattern;
+    bool round;
+    bool square;
     //TODO: Add portrait
 
     [Header("Ability")]
@@ -27,6 +30,7 @@ public class Character : MonoBehaviour
     public Image effectImage;
     public TextMeshProUGUI effectAmount;
     private AudioSource source;
+    public Animator spriteAnimator;
 
     [Header("Misc")]
     public List<StatusEffect> activeStatusEffects = new List<StatusEffect>(); //hasn't been implemented yet, but these should be created when duration > 1 in damage function, and triggered onPlayerTurnStart
@@ -108,7 +112,7 @@ public class Character : MonoBehaviour
             }
         }
 
-        GameManager.instance.clearLog();
+        //GameManager.instance.clearLog();
         int numTargets = ability.targetAllies ? selectedAllyTargets.Count : selectedEnemyTargets.Count;
         for (int i = 0; i < numTargets; i++) {                      //then we actually damage/heal the targets
             float abilityDamage = ability.damage * (GameManager.instance.comboScript.GetComboValue());
@@ -124,7 +128,13 @@ public class Character : MonoBehaviour
         
         //lastly, we update the combo meter, play the right sounds, and call waitThenReset(which ends the player turn)
         GameManager.instance.comboScript.AddCombo(ability.comboValue);
-        AudioManager.instance.PlayGlobal(ability.soundID, _priority: 1);
+        spriteAnimator.SetTrigger("attack");
+
+        int soundID = 16;
+        if (round) { soundID = 17; }
+        if (square) { soundID = 1; }
+
+        AudioManager.instance.PlayGlobal(soundID, _priority: 1);
         if (gameObject != null)
             StartCoroutine("WaitThenReset");
     }
@@ -222,6 +232,10 @@ public class Character : MonoBehaviour
         GameManager.onUpdateInput += CheckPattern;
         GameManager.onEnemyTurnStart += ResetCharacter;
         GameManager.instance.charactersInFight.Add(this);
+        spriteAnimator.SetBool("round", stats.round);
+        spriteAnimator.SetBool("square", stats.square);
+        round = stats.round;
+        square = stats.square;
     }
 
     //this function is called when someone damages (or heals) this character. almost identical to the Damage() function in Enemy.cs

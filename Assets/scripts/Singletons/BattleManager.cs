@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -74,6 +75,7 @@ public class BattleManager : MonoBehaviour
     }
 
     public void endBattleWin() {
+        
         loadPartyStats();
 
         // unload battle scene
@@ -87,6 +89,7 @@ public class BattleManager : MonoBehaviour
         toggleAllEnemyMovement(true);
         currentFreeRoamEnemy.setDefeated(true);
         currentFreeRoamEnemy.gameObject.SetActive(false);
+        //AudioManager.instance.PlayHere(-5, gameObject.GetOrAddComponent<AudioSource>());
         RestartMusic();
     }
 

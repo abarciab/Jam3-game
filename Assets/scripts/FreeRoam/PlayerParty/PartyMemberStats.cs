@@ -10,6 +10,8 @@ public class PartyMemberStats : MonoBehaviour
     public string pattern;
     public Sprite portrait;
     public Ability ability;
+    public bool round;
+    public bool square;
 
     public void setCurrentHealth(float health) {
         currentHealth = health;
