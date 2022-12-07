@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
 
 public class Character : MonoBehaviour
@@ -230,7 +230,16 @@ public class Character : MonoBehaviour
         ability = stats.ability;
         UpdatePatternLabel();
 
-        abilityDesciprtionLabel.text = stats.ability.description;
+        float relevantNumber = ability.damage;
+        if (ability.damagePerTurn > 1 || ability.turnDuration > 1) {
+            relevantNumber = ability.damagePerTurn;
+        }
+        else if (ability.damage < 0) {
+            relevantNumber *= -1;
+        }
+        abilityDesciprtionLabel.text = stats.ability.description.Replace("DMG", relevantNumber.ToString());
+
+
         healthLabel.text = health + "/" + maxHealth;
         healthSlider.value = maxHealth/health;
         GameManager.onUpdateInput += CheckPattern;

@@ -8,17 +8,40 @@ public class BattleManager : MonoBehaviour
 {
     public static BattleManager instance;
 
-    [SerializeField] private string battleSceneName;
-    [SerializeField] private string freeRoamSceneName;
-    [SerializeField] private Transform enemyContainer;
+    
+    
+    
     public Transform playerParty;
     public List<EnemyStats> currentEnemies { get; private set; }
     public FreeRoamEnemy currentFreeRoamEnemy { get; private set; }
-    public List<Enemy> enemyChoice = new List<Enemy>();
+    //public List<Enemy> enemyChoice = new List<Enemy>();
+    
+
+    [Header("References")]
+    [SerializeField] private Transform enemyContainer;
     public GameObject winScreen;
+    public XPSystem xpSystem;
+    public GameObject enemyParent;
+    public IsometricPlayerMovement playerController;
+    [SerializeField] private string battleSceneName;
+    [SerializeField] private string freeRoamSceneName;
 
     private void Awake() {
         instance = this;
+    }
+
+    public void PauseCharacterAndEnemies()
+    {
+        enemyParent.SetActive(false);
+        playerController.enabled = false;
+        playerController.GetComponent<AudioSource>().mute = true;
+    }
+
+    public void ResumeCharacterAndEnemies()
+    {
+        enemyParent.SetActive(true);
+        playerController.enabled = true;
+        playerController.GetComponent<AudioSource>().mute = false;
     }
 
     private void Start()
@@ -85,8 +108,8 @@ public class BattleManager : MonoBehaviour
     public void endBattleWin(bool vines, bool hook) {
         if (!string.IsNullOrEmpty(dropFromCurrentFight)){Inventory.instance.addItem(dropFromCurrentFight);}
 
-        if (vines) { Inventory.instance.activate(true); }
-        if (hook) { Inventory.instance.activate(false); }
+        //if (vines) { Inventory.instance.activate(true); }
+        //if (hook) { Inventory.instance.activate(false); }
 
         loadPartyStats();
 

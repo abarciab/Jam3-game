@@ -577,10 +577,10 @@ RectTransform:
   m_Father: {fileID: 2144149611}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 304, y: -215}
-  m_SizeDelta: {x: 300.5776, y: 68.5455}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -176, y: 55}
+  m_SizeDelta: {x: 300.57764, y: 68.5455}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1320803964
 MonoBehaviour:
@@ -724,7 +724,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25.8459, y: -192.6745}
+  m_AnchoredPosition: {x: 25.845886, y: -192.6745}
   m_SizeDelta: {x: 876.3921, y: 831.7191}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1692763195
@@ -747,11 +747,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Credits:\n\nprogramming\nMason \t- lead programmer\nAndi \t- combat programmer\n\nart:\nEd\t-UI
-    art\nAidan\t-UI implementation & animation\nKennedy\t-robot sprites & animation\nJacob\t-Enemy
-    art & animations\nJacob\t-Icons\nAidan\t-tilemap\n\nDesign & Sound:\nAndi\t-Music\nMason\t-sound
-    effects\nAidan \t- original concept/prototype\nAidan\t-Level design\nEd\t-Ui
-    design"
+  m_text: "Credits:\n\nprogramming\nMason \t-lead programmer\nAndi \t-combat programmer\nAidan\t-asset
+    implementation\n\t-systems and UI\n\nArt:\nEd\t-UI art\nKennedy\t-robot sprites
+    & animation\nAidan\t-UI implementation & animation\n\t-tilemap\nJacob\t-Enemy
+    art & animations\n\t-Icons\n\nDesign & Sound:\nAndi\t-Music\nMason\t-sound effects\nEd\t-Ui
+    design\nAidan \t-original concept/prototype\n\t-Level design\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4b28088bd46630e43b4614bd80889307, type: 2}
   m_sharedMaterial: {fileID: -8757946050895935648, guid: 4b28088bd46630e43b4614bd80889307, type: 2}

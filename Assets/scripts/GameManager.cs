@@ -162,9 +162,10 @@ public class GameManager : MonoBehaviour
         if (enemiesInFight.Count == 0 && turnsPassed > 0 && !battleOver) {
             battleOver = true;
             clearLog();
-            HealthBars.instance.IncreaseScore(totalScoreForThisFight);
+            BattleManager.instance.xpSystem.GainXP(totalScoreForThisFight);
+            //HealthBars.instance.IncreaseScore(totalScoreForThisFight);
             Log("<color=green>You Win!</color>");
-            AudioManager.instance.PlayGlobal(15);
+            AudioManager.instance.PlayGlobal(15, _priority:5);
             StartCoroutine(endFight(true));
             return;
         }

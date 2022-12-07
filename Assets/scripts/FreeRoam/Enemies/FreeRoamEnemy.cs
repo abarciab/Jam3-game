@@ -40,7 +40,7 @@ public class FreeRoamEnemy : MonoBehaviour
     private bool defeated;
 
     public List<EnemyStats> enemiesInEncounter;
-    public List<Enemy> enemyList = new List<Enemy>();
+    //public List<Enemy> enemyList = new List<Enemy>();
 
     private void Awake() {
         enemyTrigger = GetComponent<Collider2D>();

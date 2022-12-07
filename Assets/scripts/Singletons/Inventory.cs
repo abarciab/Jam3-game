@@ -9,8 +9,12 @@ public class Inventory : MonoBehaviour
     private List<string> inventoryItems = new List<string>();
 
     public List<GameObject> Sprites;
+    public GameObject background;
     public List<string> requiredItems;
     int numCollected;
+
+    //testing
+    public bool testActivate;
 
     private void Awake() {
         instance = this;
@@ -31,22 +35,19 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void activate(bool vines)
+    public void activate()
     {
-        if (vines) {
-            for (int i = 0; i < 3; i++) {
-                Sprites[i].SetActive(true);
-            }
-        }
-        else {
-            Sprites[3].SetActive(true);
+        background.SetActive(true);
+        for (int i = 0; i < 4; i++) {
+            Sprites[i].SetActive(true);
         }
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.I)) {
-            foreach(string drop in inventoryItems)
-                print(drop);
+        if (testActivate) {
+            activate();
         }
     }
+
+    
 }

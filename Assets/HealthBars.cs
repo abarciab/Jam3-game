@@ -29,17 +29,17 @@ public class HealthBars : MonoBehaviour
     public Sprite ColorSquare;
     public Slider squareSlider;
     public Image squareFill;
-    public TextMeshProUGUI scoreText;
 
     public PartyMemberStats triStats;
     public PartyMemberStats roundStats;
     public PartyMemberStats SquareStats;
 
-    bool roundActivated;
-    bool squareActivated;
+    public bool roundActivated;
+    public bool squareActivated;
 
     void Update()
     {
+
         triSlider.value = triStats.currentHealth / triStats.maxHealth;
         triFill.color = HPGradient.Evaluate(triSlider.value);
         if (roundActivated) {
@@ -52,11 +52,11 @@ public class HealthBars : MonoBehaviour
         }   
     }
 
-    public void IncreaseScore (int _score)
+    /*public void IncreaseScore (int _score)
     {
         score += _score;
         scoreText.text = "Score: " + score;
-    }
+    }*/
 
     public void ActiveRound()
     {
